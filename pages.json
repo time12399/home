@@ -1,0 +1,83 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+			"path": "pages/tabBar/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/tabBar/candle",
+			"style": {
+				"navigationBarTitleText": "图表"
+			}
+		},
+		{
+			"path": "pages/tabBar/transaction",
+			"style": {
+				"navigationBarTitleText": "交易"
+			}
+		},
+		{
+			"path": "pages/tabBar/history",
+			"style": {
+				"navigationBarTitleText": "历史"
+			}
+		},
+		{
+			"path": "pages/auth/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/transAdd/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"tabBar": {
+		"color": "#a5a5a4",
+		"selectedColor": "#1296db",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/tabBar/index",
+				"text": "首页",
+				"iconPath": "static/image/tabar/home.png",
+				"selectedIconPath": "static/image/tabar/home1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/candle",
+				"text": "图表",
+				"iconPath": "static/image/tabar/home.png",
+				"selectedIconPath": "static/image/tabar/home1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/transaction",
+				"text": "交易",
+				"iconPath": "static/image/tabar/jiaoyi.png",
+				"selectedIconPath": "static/image/tabar/jiaoyi1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/history",
+				"text": "历史",
+				"iconPath": "static/image/tabar/lishi.png",
+				"selectedIconPath": "static/image/tabar/lishi1.png"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTitleText": "uni-app",
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#fe8113",
+		"backgroundColor": "#fe8113",
+		"navigationStyle": "custom"
+	},
+	"uniIdRouter": {}
+}

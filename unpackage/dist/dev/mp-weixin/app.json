@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/tabBar/index",
+    "pages/tabBar/candle",
+    "pages/auth/login",
+    "pages/auth/register"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTitleText": "uni-app",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#fe8113",
+    "backgroundColor": "#fe8113",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#a5a5a4",
+    "selectedColor": "#fe8113",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/tabBar/index",
+        "text": "首页",
+        "iconPath": "static/image/tabar/home.png",
+        "selectedIconPath": "static/image/tabar/home1.png"
+      },
+      {
+        "pagePath": "pages/tabBar/candle",
+        "text": "图表",
+        "iconPath": "static/image/tabar/home.png",
+        "selectedIconPath": "static/image/tabar/home1.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
