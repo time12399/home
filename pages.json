@@ -28,6 +28,12 @@
 			}
 		},
 		{
+			"path": "pages/tabBar/setup",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		{
 			"path": "pages/auth/login",
 			"style": {
 				"navigationBarTitleText": "登录"
@@ -55,16 +61,15 @@
 						"enablePullDownRefresh": false
 				}
 				
+		},{
+				"path" : "pages/index/index",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+				}
+				
 		}
-        ,{
-            "path" : "pages/index/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
     ],
 	"tabBar": {
 		"color": "#a5a5a4",
@@ -92,6 +97,12 @@
 			{
 				"pagePath": "pages/tabBar/history",
 				"text": "历史",
+				"iconPath": "static/image/tabar/lishi.png",
+				"selectedIconPath": "static/image/tabar/lishi1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/setup",
+				"text": "设置",
 				"iconPath": "static/image/tabar/lishi.png",
 				"selectedIconPath": "static/image/tabar/lishi1.png"
 			}
