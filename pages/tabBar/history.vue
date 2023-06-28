@@ -14,7 +14,7 @@
 					</view>
 				</view>
 				<view class="width_1">
-					<view class="img_list">
+					<view class="img_list" @click="goLink('/pages/transAdd/history')">
 						<image src="../../static/image/history/history.png" mode=""></image>
 					</view>
 				</view>
@@ -121,7 +121,12 @@
 			},
 			sortClick() {
 				this.sortShow = true
-			}
+			},
+			goLink(url) {
+				uni.navigateTo({
+					url: url
+				})
+			},
 		}
 	}
 </script>

@@ -39,8 +39,33 @@
 				"enablePullDownRefresh": false
 			}
 
+		},{
+				"path" : "pages/transAdd/add",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+				}
+				
+		},{
+				"path" : "pages/transAdd/history",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+				}
+				
 		}
-	],
+        ,{
+            "path" : "pages/index/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#a5a5a4",
 		"selectedColor": "#1296db",

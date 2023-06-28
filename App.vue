@@ -10,7 +10,12 @@
 				// }
 			}
 			console.log('App Launch')
-
+			uni.getSystemInfo({
+				success:(e)=> {
+					uni.setStorageSync('statusBarHeight', e.statusBarHeight);
+					// this.statusBarHeight = e.statusBarHeight;
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')

@@ -7,7 +7,7 @@
 				</view>
 				<view class="width_2">
 					<view class="nav_padding">
-						<view class="title">EURUSD <u-icon name="arrow-down" color="#333" size="20"></u-icon> </view>
+						<view class="title" @click="goLink('/pages/transAdd/add')">EURUSD <u-icon name="arrow-down" color="#333" size="20"></u-icon> </view>
 						<view class="xi">Euro vs US Dollar</view>
 					</view>
 				</view>
