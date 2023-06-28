@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" title="行情"></u-navbar>
+		<u-navbar :is-back="false" title="行情11"></u-navbar>
 		<view class="searchInput">
 			<u-search placeholder="输入交易品种进行搜索" shape="square" :clearabled="true" :show-action="false"
 				v-model="keyword"></u-search>
