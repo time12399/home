@@ -1,11 +1,16 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" title="行情"></u-navbar>
+		<u-navbar :is-back="false" title="行情">
+			<view class="slot-wrap" slot="right" @click="smallType">
+						<u-icon name="list" size="30"></u-icon>
+			</view>
+		</u-navbar>
 		<view class="searchInput">
 			<u-search placeholder="输入交易品种进行搜索" shape="square" :clearabled="true" :show-action="false"
 				v-model="keyword" :disabled="true" @click="goLink('/pages/index/index')"></u-search>
 		</view>
-		<view class="list_padd" v-for="item in 10" @click="actionSheetShow = true">
+		
+		<view v-show="listShow" class="list_padd" v-for="item in 10" @click="actionSheetShow = true">
 			<view>
 				<view class="burden_num">
 					<text class="text1">-638</text>
@@ -40,6 +45,46 @@
 					</view>
 				</view>
 			</view>
+		</view>
+		<view v-show="listShow == false" class="smalllist_padd">
+				<view class="smalllist_display" style="padding-bottom: 30rpx;">
+						<view class="smalllist_width_1">
+							<view class="">交易品种</view>
+						</view>
+						<view class="smalllist_width_2">
+							<view class="smalllist_width">
+									卖价
+							</view>
+							<view class="smalllist_width">
+									买价
+							</view>
+							<view class="smalllist_width">
+									日%
+							</view>
+							<view class="smalllist_width">
+									最高卖价
+							</view>
+						</view>
+				</view>
+				<view class="smalllist_display" v-for="item in 10" style="padding-bottom: 20rpx;">
+						<view class="smalllist_width_1">
+							<view class="smalllist_width_1_title">EURUSD</view>
+						</view>
+						<view class="smalllist_width_2 smalllist_nei">
+							<view class="smalllist_width smalllist_color_1">
+									1.08700
+							</view>
+							<view class="smalllist_width smalllist_color_2">
+									1.08700
+							</view>
+							<view class="smalllist_width smalllist_color_1">
+									-0.38%
+							</view>
+							<view class="smalllist_width">
+									1.94700
+							</view>
+						</view>
+				</view>
 		</view>
 
 		<u-popup v-model="homeShow" mode="center" length="80%" border-radius="20">
@@ -79,6 +124,7 @@
 				}, {
 					text: '删除'
 				}],
+				listShow:true
 			}
 		},
 		onLoad() {
@@ -100,11 +146,19 @@
 					url: url
 				})
 			},
+			smallType(){
+					this.listShow = !this.listShow
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
+	.slot-wrap {
+			display: flex;
+			align-items: center;
+			padding-right:30rpx;
+		}
 	.searchInput {
 		padding: 20rpx;
 	}
@@ -213,6 +267,45 @@
 
 		.popup_button {
 			margin-bottom: 30rpx;
+		}
+	}
+
+	.smalllist_padd{
+		padding: 20rpx;
+		
+		.smalllist_display{
+			display:flex;
+			font-size: 28rpx;
+			
+			
+			.smalllist_width_1{
+				width: 20%;
+				
+				.smalllist_width_1_title{
+						font-weight: bold;
+				}
+			}
+			.smalllist_width_2{
+				width: 80%;
+				display: flex;
+				text-align: end;
+				
+					.smalllist_width{
+						width: 25%;
+					}
+					
+					.smalllist_color_1{
+						color: red;
+					}
+					
+					.smalllist_color_2{
+						color: #196ed9;
+					}
+				
+			}
+			.smalllist_nei{
+				font-size: 20rpx;
+			}
 		}
 	}
 </style>
