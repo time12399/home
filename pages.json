@@ -79,6 +79,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#a5a5a4",
