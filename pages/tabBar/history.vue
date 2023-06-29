@@ -60,7 +60,7 @@
 			</view>
 		</view>
 
-		<view class="display_content" v-for="item in 15">
+		<view class="display_content" v-for="item in 15" @click="goLink('../index/cashOut')">
 			<view style="width:50%">
 				<view class="content_title_2">
 					<text class="content_title">USDCAD,</text>
