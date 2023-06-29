@@ -88,6 +88,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/cashOut",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#a5a5a4",
