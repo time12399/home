@@ -1,16 +1,27 @@
 import App from './App'
 
-
 import store from 'store/index.js'
 import * as utils from '@/utils/utils.js'
 import AccountError from '@/exception/AccountError.js';
-
 import uView from "uview-ui";
+
+import VueI18n from 'vue-i18n'
+import messages from './locale/index'
+
+let currLanguage = uni.getStorageInfoSync("currLanguage")
+
+let i18nConfig = {
+	locale: currLanguage? currLanguage: uni.getLocale(),// 获取已设置的语言
+	messages
+}
+
+
+
+Vue.use(VueI18n)
 Vue.use(uView);
+const i18n = new VueI18n(i18nConfig)
 
 Vue.prototype.$utils = utils
-
-
 Vue.prototype.$throw = function (message) {
 	this.$u.toast(message)
 	throw new AccountError(message);
@@ -51,7 +62,8 @@ try {
 
 const app = new Vue({
 	...App,
-	store
+	store,
+	i18n
 })
 app.$mount()
 // #endif

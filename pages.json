@@ -5,32 +5,38 @@
 	"pages": [{
 			"path": "pages/tabBar/index",
 			"style": {
-				"navigationBarTitleText": "首页",
+				"navigationBarTitleText": "%tabBar.index.text%",
 				"navigationBarTextStyle": "black"
 			}
 		},
 		{
-			"path": "pages/tabBar/candle",
+			"path": "pages/tabBar/chart",
 			"style": {
-				"navigationBarTitleText": "图表"
+				"navigationBarTitleText": "%tabBar.chart.text%"
 			}
 		},
 		{
-			"path": "pages/tabBar/transaction",
+			"path": "pages/tabBar/trade",
 			"style": {
-				"navigationBarTitleText": "交易"
+				"navigationBarTitleText": "%tabBar.trade.text%"
 			}
 		},
 		{
 			"path": "pages/tabBar/history",
 			"style": {
-				"navigationBarTitleText": "历史"
+				"navigationBarTitleText": "%tabBar.history.text%"
 			}
 		},
 		{
-			"path": "pages/tabBar/setup",
+			"path": "pages/tabBar/setting",
 			"style": {
-				"navigationBarTitleText": "设置"
+				"navigationBarTitleText": "%tabBar.setting.text%"
+			}
+		},
+		{
+			"path": "pages/setup/language",
+			"style": {
+				"navigationBarTitleText": "语言列表"
 			}
 		},
 		{
@@ -105,31 +111,31 @@
 		"backgroundColor": "#fff",
 		"list": [{
 				"pagePath": "pages/tabBar/index",
-				"text": "首页",
+				"text": "%tabBar.index.text%",
 				"iconPath": "static/image/tabar/home.png",
 				"selectedIconPath": "static/image/tabar/home1.png"
 			},
 			{
-				"pagePath": "pages/tabBar/candle",
-				"text": "图表",
+				"pagePath": "pages/tabBar/chart",
+				"text": "%tabBar.chart.text%",
 				"iconPath": "static/image/tabar/home.png",
 				"selectedIconPath": "static/image/tabar/home1.png"
 			},
 			{
-				"pagePath": "pages/tabBar/transaction",
-				"text": "交易",
+				"pagePath": "pages/tabBar/trade",
+				"text": "%tabBar.trade.text%",
 				"iconPath": "static/image/tabar/jiaoyi.png",
 				"selectedIconPath": "static/image/tabar/jiaoyi1.png"
 			},
 			{
 				"pagePath": "pages/tabBar/history",
-				"text": "历史",
+				"text": "%tabBar.history.text%",
 				"iconPath": "static/image/tabar/lishi.png",
 				"selectedIconPath": "static/image/tabar/lishi1.png"
 			},
 			{
-				"pagePath": "pages/tabBar/setup",
-				"text": "设置",
+				"pagePath": "pages/tabBar/setting",
+				"text": "%tabBar.setting.text%",
 				"iconPath": "static/image/tabar/lishi.png",
 				"selectedIconPath": "static/image/tabar/lishi1.png"
 			}

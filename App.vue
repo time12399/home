@@ -1,6 +1,7 @@
 <script>
 	export default {
 		onLaunch: function(options) {
+			this.$store.dispatch("language/getList")
 			if (!this.$store.state.user.hasLogin) {
 
 				// if("pages/tabBar/index".indexOf(options.path) == -1){
