@@ -2,7 +2,7 @@
 	<view>
 			<view :style="{ height: statusBarHeight + 'px' }"></view>
 			<view class="searchInput">
-					<u-search placeholder="输入交易品种进行搜索" v-model="keyword" @change="changeSearch" shape="square" :show-action="true" action-text="取消" @custom="custom"></u-search>
+					<u-search :placeholder="searchPlaceholder" v-model="keyword" @change="changeSearch" shape="square" :show-action="true" :action-text="cancellation" @custom="custom"></u-search>
 			</view>
 			<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index" @click="goLink('./search')">
 					<view class="title_list_padding">
@@ -45,6 +45,8 @@
 	export default {
 		data() {
 			return {
+					searchPlaceholder:this.$t("tabBar.index.search"),
+					cancellation:this.$t("common.cancel"),
 					statusBarHeight:uni.getStorageSync('statusBarHeight'),
 					actionList: [{
 						text: 'Forex',

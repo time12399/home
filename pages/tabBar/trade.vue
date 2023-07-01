@@ -8,11 +8,11 @@
 
 		<view class="display_content">
 			<view style="width:50%">
-				<view class="content_title_1">结余:</view>
-				<view class="content_title_1">净值:</view>
-				<view class="content_title_1">预付款:</view>
-				<view class="content_title_1">可用预付款:</view>
-				<view class="content_title_1">预付款比率(%):</view>
+				<view class="content_title_1">{{$t("tabBar.trade.balance")}}:</view>
+				<view class="content_title_1">{{$t("tabBar.trade.worth")}}:</view>
+				<view class="content_title_1">{{$t("tabBar.trade.advance")}}:</view>
+				<view class="content_title_1">{{$t("tabBar.trade.available")}}:</view>
+				<view class="content_title_1">{{$t("tabBar.trade.prepayment")}}(%):</view>
 			</view>
 			<view class="content_right" style="width:50%">
 				<view class="text3">100 000.00</view>
@@ -24,7 +24,7 @@
 		</view>
 
 		<view class="price_display">
-			<view class="price_width">价位</view>
+			<view class="price_width">{{$t("tabBar.trade.price")}}</view>
 			<u-icon name="more-dot-fill" color="#808080" size="28" @click="actionSheetShow = true"></u-icon>
 		</view>
 
