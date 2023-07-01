@@ -3,5 +3,7 @@
 	"tabBar.chart.text": "Chart",
 	"tabBar.trade.text": "Trade",
 	"tabBar.history.text": "History",
-	"tabBar.setting.text": "Settings"
+	"tabBar.setup.text": "setups",
+	"common.cancel": "Cancel",
+	"common.authorizaion": "Authorizaion"
 }

@@ -2,6 +2,9 @@
 	<view>
 		<u-navbar :is-back="false" title="Ajada" :border-bottom="false"></u-navbar>
 		<view class="u-m-t-20 b-b-1">
+			<view>
+				
+			</view>
 			<view class="item viewFlex">
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>

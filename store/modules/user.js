@@ -1,4 +1,4 @@
-import { login } from '../../api/user';
+import { login, register } from '../../api/user';
 import { setToken , getToken, removeToken} from '../../utils/auth';
 let infoHistory = uni.getStorageSync('userInfo') || {};
 
@@ -32,9 +32,20 @@ mutations = {
 	}
 }
 , actions = {
+	register({ commit }, param) {
+	    register(param).then(response => {
+	    	if(response.code == 1){
+	    		uni.reLaunch({
+	    			url: "/pages/auth/login"
+	    		})
+	    	}
+	    }).catch(error => {
+	        console.log(error)
+	    })
+	},
 	login({ commit }, param) {
 	    login(param).then(response => {
-	    	if(response.status == 0){
+	    	if(response.code == 1){
 	    		const { data } = response;
 	    		commit('setUserInfo', data)
 	    	}

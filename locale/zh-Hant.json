@@ -3,5 +3,7 @@
 	"tabBar.chart.text": "圖表",
 	"tabBar.trade.text": "交易",
 	"tabBar.history.text": "歷史",
-	"tabBar.setting.text": "設置"
+	"tabBar.setup.text": "設置",
+	"common.cancel": "取消",
+	"common.authorizaion": "授權"
 }

@@ -103,7 +103,8 @@
 </template>
 
 <script>
-	import * as Api from "@/api/index.js"
+	// import * as Api from "@/api/index.js"
+	import { getGoods } from "@/api/index.js"
 
 	export default {
 		data() {
@@ -133,8 +134,17 @@
 				this.homeShow = true
 				uni.setStorageSync('home_popup', true);
 			}
+			this.getGoodsInit()
 		},
 		methods: {
+			getGoodsInit(){
+				let data = {
+					page: 1,
+				}
+				getGoods(data).then(res=>{
+					console.log(res)
+				})
+			},
 			agree() {
 				this.homeShow = false
 			},

@@ -1,140 +1,116 @@
 <template>
-	<view class="loginWrap ">
-		<view class="imgWrap">
-			<image  class="logo" style="width: 100upx;height: 100upx;" src="../../static/logo.png" mode=""></image>
+	<view class="container">
+		<view class="nav"></view>
+		<view class="head">
+			<text class="back" @click="$utils.comeback()">
+				{{$t("common.cancel")}}
+			</text>
+			<text class="title">{{$t("common.authorizaion")}}</text>
 		</view>
-		
-		<u-form v-if="loginWay == 1" class="loginForm">
-			<view class="uni-form-item uni-column">
-				<u-input placeholder="请输入登录账号"  v-model="form.mobile" type="number" clearable />
+		<u-gap height="200"></u-gap>
+		<view class="content">
+			<view class="form">
+				<u-form :model="form" ref="uForm" >
+					<u-form-item label-width="70"label="登录" prop="phone" >
+						<u-input 
+							:clearable="false"
+						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" />
+					</u-form-item>
+					<u-form-item label-width="70" label="密码" prop="password" :border-bottom="false">
+						<u-input :clearable="false" 
+							:type="showPassword?'password':'text'"
+							:password-icon="false"
+							input-align="right" ref="password" v-model="form.password" placeholder="输入密码"/>
+						<u-icon v-if="form.password.length > 0"
+							@click="showPassword = !showPassword"
+							size="35" class="icon" :name="showPassword?'eye-off':'eye-fill'"></u-icon>
+					</u-form-item>
+				</u-form>
 			</view>
-			<view class="uni-form-item uni-column">
-				<u-input v-model="form.password" type="password" placeholder="请输入密码" :password-icon="true" />
-				<!-- <text class="forgetText">忘记密码</text> -->
+			<view class="desc">
+				现在在此授权与交易者聊天
 			</view>
-			<u-button form-type="submit" class="loginbtn" type="default" @click="formSubmit">登录</u-button>
-		</u-form>
-		
-		<u-form class="loginForm" v-if="loginWay == 2" :model="form">
-			<view class="uni-form-item uni-column">
-				<u-input maxlength="11" placeholder="请输入手机号码" type="number" v-model="form.mobile" />
-			</view>
-			<view class="uni-form-item uni-column">
-				<u-input maxlength="4" placeholder="请输入验证码" type="number" v-model="form.code" />
-				<view class="wrap">
-					<u-toast ref="uToast"></u-toast>
-					<u-verification-code 
-					:seconds="seconds" 
-					ref="uCode" 
-					@change="codeChange"
-					></u-verification-code>
-					<u-button type="success" size="mini" @click="getCode">{{tips}}</u-button>
-				</view>
-			</view>
-			<u-button class="loginbtn" @click="formSubmit" type="default">登录</u-button>
-		</u-form>
-		
-		<view class="action center">
-			<text @click="changeLoginWay" style="color: #71B6F7;">{{loginWay == 2?'账号密码登录':'短信验证登录'}}</text>
+			<u-button class="submit-btn" @click="submit" type="success">登录</u-button>
 		</view>
 	</view>
 </template>
- 
+
 <script>
-	import {sendCode as sendCodeApi} from '../../api/user';
-	export default{
-		data(){
-			return{
-				form:{
-					mobile: "13803470847",
-					code: "1234",
-					password: null
+	export default {
+		data() {
+			return {
+				form: {
+					phone: "",
+					password: "",
 				},
-				loginWay: 2,
-				seconds: 5,
-				tips:''
+				showPassword: false
 			}
 		},
-		methods:{
-			formSubmit(){
-				let loginWay = this.loginWay
-					, form = this.form
-					, that = this
-				if(!this.$u.test.mobile(form.mobile)){
-					this.$u.toast('请输入正确手机号');
+		methods: {
+			submit() {
+				let that = this,
+					form = this.form
+				
+				if(!form.phone){
+					this.$refs.phone.focus = true
 					return
 				}
-				if(loginWay == 2){
-					if(form.code.length != 4){
-						this.$u.toast('请输入正确验证码');
-						return
-					}
-				}else{
-					if(this.$utils.isEmpty(form.password)){
-						this.$u.toast('请输入密码');
-						return
-					}
+				if(!form.password){
+					this.$refs.password.focus = true
+					return
 				}
-				
-				form.loginWay = loginWay
 				this.$store.dispatch("user/login", form)
 			},
-			changeLoginWay(){
-				this.loginWay = this.loginWay == 1?2:1;
-			},
-			codeChange(text) {
-				this.tips = text;
-				// this.$throw()
-			},
-			getCode(){
-				if(this.$refs.uCode.canGetCode) {
-					uni.showLoading({
-						title: '正在获取验证码'
-					})
-					sendCodeApi({
-						mobile: this.form.mobile,
-						event: "mobilelogin"
-					}).then(res=>{
-						
-						this.$refs.uCode.start();
-					})
-				}
-			},
-		}
+		},
 	}
 </script>
- 
-<style lang="less">
-		
-	.loginWrap{
-		.imgWrap{
+
+<style lang="scss">
+	page{
+		background-color: #000000;
+		color: #ffffff;
+	}
+	.u-form-item{
+		padding: 2px;
+		position: relative;
+		.icon{
+			position: absolute;
+		}
+	}
+	.nav{
+		height: var(–status-bar-height);
+	}
+	.head{
+		height: 100rpx;
+		line-height: 100rpx;
+		position: relative;
+		text-align: center;
+		.back{
+			position: absolute;
+			left: 40rpx;
+		}
+		.title{
+			font-size: 30rpx;
+			font-weight: bold;
+		}
+	}
+	.content{
+		width: 80%;
+		margin: 0 auto;
+		.form{
+			background-color: #fff;
+			border-radius: 2px;
+			padding: 10rpx 20rpx;
+		}
+		.desc{
+			margin-top: 20rpx;
 			text-align: center;
-			padding: 50upx;
 		}
-		.loginForm{
-			.uni-form-item{
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				border-bottom: 1upx solid #DCDCDC;
-				padding: 10upx 30upx;
-				margin: 20upx;
-				u-input{
-					flex: 1;
-				}
-				.forgetText{
-					color: #C8C7CC;
-				}
-				
-			}
-				
-			.wrap{
-				height: auto;
-			}
-			.loginbtn{margin: 20upx; margin-top: 60upx;background: #2CA800;color: #fff;}
-		}
-		.action{
-			padding: 10upx 30upx;
+		.submit-btn{
+			background-color: #e8b754;
+			margin-top: 80rpx;
+			color: #000000;
+			border-radius: 10rpx;
 		}
 	}
 </style>
