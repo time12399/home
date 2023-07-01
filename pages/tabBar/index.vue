@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" title="行情">
+		<u-navbar :is-back="false" title="行情1">
 			<view class="slot-wrap" slot="right" @click="smallType">
 						<u-icon name="list" size="30"></u-icon>
 			</view>
