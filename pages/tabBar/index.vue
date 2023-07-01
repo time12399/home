@@ -67,22 +67,22 @@
 							</view>
 						</view>
 				</view>
-				<view class="smalllist_display" v-for="item in 10"   style="padding-bottom: 20rpx;">
+				<view class="smalllist_display" v-for="item in getGoodsList.data" :key="item.id"   style="padding-bottom: 20rpx;">
 						<view class="smalllist_width_1">
-							<view class="smalllist_width_1_title">USD</view>
+							<view class="smalllist_width_1_title">{{item.name}}</view>
 						</view>
 						<view class="smalllist_width_2 smalllist_nei">
 							<view class="smalllist_width smalllist_color_1">
-									1
+									{{item.now_sell}}
 							</view>
 							<view class="smalllist_width smalllist_color_2">
-									1.08700
+									{{item.now_buy}}
 							</view>
 							<view class="smalllist_width smalllist_color_1">
-									-0.38%
+									{{item.k_percent}}%
 							</view>
 							<view class="smalllist_width">
-									1.94700
+									{{item.k_top}}
 							</view>
 						</view>
 				</view>
