@@ -14,3 +14,10 @@ export function getGoods() {
 		method: 'POST',
 	})
 }
+
+export function searchGoods() {
+	return request({
+		url: 'api.Goods/searchGoods',
+		method: 'POST',
+	})
+}

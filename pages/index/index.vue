@@ -42,6 +42,9 @@
 </template>
 
 <script>
+	import { searchGoods } from "@/api/index.js"
+	
+	
 	export default {
 		data() {
 			return {
@@ -59,7 +62,18 @@
 					showType:1,
 			}
 		},
+		onLoad() {
+			this.searchGoodsInit()
+		},
 		methods: {
+				searchGoodsInit(){
+					searchGoods().then(res=>{
+						if(res.code == 1){
+							console.log(res)
+							// this.getGoodsList = res.data
+						}
+					})
+				},
 				custom(){
 					uni.navigateBack({
 						delta: 1
