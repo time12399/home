@@ -39,11 +39,17 @@
 		},
 		methods:{
 			languageClick(index){
-				uni.setStorageSync('currLanguage', index)
+				let language = index
 				this.curr = index
-				uni.setLocale(index)
-				this.$i18n.locale = index;
-
+				
+				if(!index){
+					language = uni.getStorageSync("localeLan")
+				}
+				uni.setStorageSync('currLanguage', index)
+				uni.setLocale(language)
+				this.$i18n.locale = language;
+				
+				this.$utils.handleReLaunch("/pages/tabBar/index")
 			}
 		}
 	}

@@ -17,3 +17,9 @@ export function handleSwitchTab(url) {
 		url: url
 	});
 }
+
+export function handleReLaunch(url) {
+	uni.reLaunch({
+		url: url
+	})
+}

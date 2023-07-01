@@ -9,7 +9,10 @@ import VueI18n from 'vue-i18n'
 import messages from './locale/index'
 
 let currLanguage = uni.getStorageInfoSync("currLanguage")
-
+// 初始化存入系统语言
+if(!uni.getStorageSync("localeLan")){
+	uni.setStorageSync("localeLan", uni.getLocale())
+}
 let i18nConfig = {
 	locale: currLanguage? currLanguage: uni.getLocale(),// 获取已设置的语言
 	messages
