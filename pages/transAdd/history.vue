@@ -1,11 +1,11 @@
 <template>
 	<view>
-			<u-navbar title="历史" back-icon-color="#196ed9"></u-navbar>
+			<u-navbar :title="title" back-icon-color="#196ed9"></u-navbar>
 			<view style="height: 20rpx;"></view>
 			<view class="breed_padding">
 					<view style="display: flex;">
-						<view class="title">交易品种 :</view>
-						<view class="title1">全部交易品种</view>
+						<view class="title">{{$t("tabBar.index.list.transaction")}} :</view>
+						<view class="title1">{{$t("tabBar.history.All")}}</view>
 					</view>
 			</view>
 			<view style="height: 50rpx;"></view>
@@ -23,7 +23,7 @@
 			<view v-show="listShow == 6">
 					<view class="breed_padding">
 							<view style="display: flex;">
-								<view class="title">开始日期 :</view>
+								<view class="title">{{$t("transAdd.history.Startdate")}} :</view>
 								<view class="title3">
 										<view class="time" @click="timeShow = true">
 											 {{timeList.startDate}}
@@ -33,7 +33,7 @@
 					</view>
 					<view class="breed_padding">
 							<view style="display: flex;">
-								<view class="title">截止日期 :</view>
+								<view class="title">{{$t("transAdd.history.deadline")}} :</view>
 								<view class="title3">
 										<view class="time" @click="timeShow = true">
 											 {{timeList.endDate}}
@@ -50,20 +50,21 @@
 	export default {
 		data() {
 			return {
+					title: this.$t("tabBar.history.text"),
 					actionList: [{
-						text: '今天',
+						text: this.$t("transAdd.history.today"),
 					}, {
-						text: '上一周'
+						text: this.$t("transAdd.history.Lastweek"),
 					}, {
-						text: '上个月'
+						text: this.$t("transAdd.history.Lastmonth"),
 					}, {
-						text: '最近3个月'
+						text: this.$t("transAdd.history.Last3months"),
 					}, {
-						text: '最近6个月'
+						text: this.$t("transAdd.history.Last6months"),
 					}, {
-						text: '去年'
+						text: this.$t("transAdd.history.lastyear"),
 					}, {
-						text: '自定义'
+						text: this.$t("transAdd.history.custom"),
 					}],
 					listShow:0,
 					timeShow:false,

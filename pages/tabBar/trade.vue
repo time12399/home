@@ -45,7 +45,7 @@
 		</view>
 
 		<u-action-sheet :list="actionList" v-model="actionSheetShow" border-radius="30"
-			@click="actionClick"></u-action-sheet>
+			@click="actionClick" :cancelText="cancelText"></u-action-sheet>
 	</view>
 </template>
 
@@ -55,12 +55,13 @@
 			return {
 				actionSheetShow: false,
 				actionList: [{
-					text: '所有持仓平仓',
+					text: this.$t("tabBar.trade.closed"),
 				}, {
-					text: '盈利持仓平仓'
+					text: this.$t("tabBar.trade.closing")
 				}, {
-					text: '亏损持仓平仓'
+					text: this.$t("tabBar.trade.positions")
 				}],
+				cancelText:this.$t("common.cancel"),
 			}
 		},
 		onLoad() {

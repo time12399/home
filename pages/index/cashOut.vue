@@ -1,16 +1,16 @@
 <template>
 	<view>
-		<u-navbar title="出金" back-icon-color="#196ed9" :title-bold="true" title-color="#333"></u-navbar>
+		<u-navbar :title="title" back-icon-color="#196ed9" :title-bold="true" title-color="#333"></u-navbar>
 		<view class="cash_padding">
 			<view class="cash_padding_bg">
 				<view class="cash_bg_padding">
 					<view class="cash_display">
-						<view class="cash_width cash_color_1">数字货币</view>
-						<view class="cash_width cash_color_2" style="margin-left: 1%;">银行卡</view>
+						<view class="cash_width" :class="currtype == 0 ?'cash_color_1' : 'cash_color_2'" @click="BankCardClick(0)">{{$t("index.cashOut.currency")}}</view>
+						<view class="cash_width" :class="currtype == 1 ?'cash_color_1' : 'cash_color_2'" style="margin-left: 1%;" @click="BankCardClick(1)">{{$t("index.cashOut.BankCard")}}</view>
 					</view>
 					<view class="cash_list_display">
 						<view class="cash_list_width_1">
-							货币
+							{{$t("index.cashOut.currenc")}}
 						</view>
 						<view class="cash_list_width_2" @click="pickerShow = true">
 							{{selectorName}}
@@ -19,9 +19,9 @@
 							<u-icon name="arrow-right" color="#d3d3d3" size="30"></u-icon>
 						</view>
 					</view>
-					<view class="cash_list_display">
+					<view class="cash_list_display" v-show="currtype == 0">
 						<view class="cash_list_width_1">
-							提币地址
+							{{$t("index.cashOut.address")}}
 						</view>
 						<view class="cash_list_width_2" @click="addressShow = true">
 							{{addressName}}
@@ -30,27 +30,37 @@
 							<u-icon name="arrow-right" color="#d3d3d3" size="30"></u-icon>
 						</view>
 					</view>
-					<view class="cash_list_display">
+					<view class="cash_list_display" v-show="currtype == 1">
 						<view class="cash_list_width_1">
-							数量
+							{{$t("index.cashOut.account")}}
 						</view>
 						<view class="cash_list_width_2">
-							<input type="number" placeholder="请输入数量" placeholder-style="font-size:28rpx">
+							<input type="number" :placeholder="placeholder2" placeholder-style="font-size:28rpx">
+						</view>
+					</view>
+					
+					
+					<view class="cash_list_display">
+						<view class="cash_list_width_1">
+							{{$t("index.cashOut.number")}}
+						</view>
+						<view class="cash_list_width_2">
+							<input type="number" :placeholder="placeholder1" placeholder-style="font-size:28rpx">
 						</view>
 					</view>
 					<view class="cash_list_display">
 						<view class="cash_list_width_1">
-							备注
+							{{$t("index.cashOut.notes")}}
 						</view>
 						<view class="cash_list_width_2" style="width:70%">
-							<input type="text" placeholder="备注" placeholder-style="font-size:28rpx">
+							<input type="text" :placeholder="placeholder" placeholder-style="font-size:28rpx">
 						</view>
 					</view>
 					<view class="display_content">
 						<view style="width:50%">
-							<view class="content_title_1">手续费</view>
-							<view class="content_title_1">预计到账数量:</view>
-							<view class="content_title_1">余额</view>
+							<view class="content_title_1">{{$t("tabBar.history.commission")}}</view>
+							<view class="content_title_1">{{$t("index.cashOut.Received")}}:</view>
+							<view class="content_title_1">{{$t("index.cashOut.balance")}}</view>
 						</view>
 						<view class="content_right" style="width:50%">
 							<view class="text3">10</view>
@@ -60,47 +70,51 @@
 					</view>
 
 					<view class="cash_button_pa">
-						<view class="cash_button">提币</view>
+						<view class="cash_button">{{$t("index.cashOut.currency1")}}</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- 提现记录 -->
-			<view class="withdraw_padd">提现记录</view>
+			<view class="withdraw_padd">{{$t("index.cashOut.records")}}</view>
 
 			<view class="cash_padding_bg">
 				<view class="cash_bg_padding">
 					<view class="list_sort_display">
 						<view class="sort_width">
-							<view class="sort_num">数量</view>
+							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
 							<view class="sort_price">900000.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">到账数量</view>
+							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
 							<view class="sort_price">89000.00</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">单位</view>
+							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
 							<view class="sort_price">USD</view>
 						</view>
 						<view class="sort_width">
-							<view class="sort_num">手续费</view>
+							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
 							<view class="sort_price">10.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">状态</view>
-							<view class="sort_price">待审核</view>
+							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
+							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">时间</view>
+							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
 							<view class="sort_price">2023.06.15 11:10:16</view>
 						</view>
-						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">提货地址</view>
+						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
+							<view class="sort_price text-ellipsis">111111</view>
+						</view>
+						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
 							<view class="sort_price text-ellipsis">111111</view>
 						</view>
 						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">备注</view>
+							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
 							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
 						</view>
 					</view>
@@ -110,35 +124,39 @@
 				<view class="cash_bg_padding">
 					<view class="list_sort_display">
 						<view class="sort_width">
-							<view class="sort_num">数量</view>
+							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
 							<view class="sort_price">900000.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">到账数量</view>
+							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
 							<view class="sort_price">89000.00</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">单位</view>
+							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
 							<view class="sort_price">USD</view>
 						</view>
 						<view class="sort_width">
-							<view class="sort_num">手续费</view>
+							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
 							<view class="sort_price">10.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">状态</view>
-							<view class="sort_price">待审核</view>
+							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
+							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">时间</view>
+							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
 							<view class="sort_price">2023.06.15 11:10:16</view>
 						</view>
-						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">提货地址</view>
+						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
+							<view class="sort_price text-ellipsis">111111</view>
+						</view>
+						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
 							<view class="sort_price text-ellipsis">111111</view>
 						</view>
 						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">备注</view>
+							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
 							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
 						</view>
 					</view>
@@ -148,35 +166,39 @@
 				<view class="cash_bg_padding">
 					<view class="list_sort_display">
 						<view class="sort_width">
-							<view class="sort_num">数量</view>
+							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
 							<view class="sort_price">900000.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">到账数量</view>
+							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
 							<view class="sort_price">89000.00</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">单位</view>
+							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
 							<view class="sort_price">USD</view>
 						</view>
 						<view class="sort_width">
-							<view class="sort_num">手续费</view>
+							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
 							<view class="sort_price">10.00</view>
 						</view>
 						<view class="sort_width sort_yi_1">
-							<view class="sort_num">状态</view>
-							<view class="sort_price">待审核</view>
+							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
+							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
 						</view>
 						<view class="sort_width sort_yi_2">
-							<view class="sort_num">时间</view>
+							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
 							<view class="sort_price">2023.06.15 11:10:16</view>
 						</view>
-						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">提货地址</view>
+						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
+							<view class="sort_price text-ellipsis">111111</view>
+						</view>
+						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
+							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
 							<view class="sort_price text-ellipsis">111111</view>
 						</view>
 						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">备注</view>
+							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
 							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
 						</view>
 					</view>
@@ -194,6 +216,7 @@
 	export default {
 		data() {
 			return {
+				title: this.$t("index.cashOut.cashout"),
 				pickerShow: false,
 				// columns: [
 				// 	'USD-TRC20', 'USD-TRC20', 'USD-TRC20'
@@ -228,7 +251,11 @@
 						id: 3
 					}
 				],
-				addressName: '请选择提币地址',
+				addressName: this.$t("index.cashOut.withdrawal"),
+				placeholder:this.$t("index.cashOut.notes"),
+				placeholder1:this.$t("index.cashOut.pnumber"),
+				placeholder2:this.$t("index.cashOut.account"),
+				currtype:0
 			}
 		},
 		methods: {
@@ -239,6 +266,10 @@
 			addconfirm(e) {
 				this.addressName = this.addressObj[e].cateName
 				this.addressShow = false
+			},
+			BankCardClick(index){
+				// console.log(index)
+				this.currtype = index
 			}
 		}
 	}

@@ -1,14 +1,14 @@
 <template>
 	<view>
-			<u-navbar title="Indexes" back-icon-color="#196ed9" :title-bold="true" title-color="#333"></u-navbar>
-			<view class="title_list" v-for="(item,index) in 10" :key="index" @click="goLink('./details')">
+			<u-navbar :title="actionListNmae" back-icon-color="#196ed9" :title-bold="true" title-color="#333"></u-navbar>
+			<view class="title_list" v-for="(item,index) in actionList" @click="goLink('./details')">
 					<view class="title_list_padding" >
 							<view class="list_display">
 								<view class="width_1">
 										<u-icon name="plus-circle-fill" color="#64c566" size="45" top="10"></u-icon>
 								</view>
 								<view class="width_2">
-									<view>HSI50</view>
+									<view>{{item.name}}</view>
 									<view class="list_display_text">HSI 50 Index</view>
 								</view>
 								<view class="width2">
@@ -24,7 +24,16 @@
 	export default {
 		data() {
 			return {
-				
+				actionListNmae:"",
+				actionList: [],
+			}
+		},
+		onLoad(options) {
+			// 获取传递的对象参数，使用decodeURIComponent解码，并转为对象
+			if ('params' in options) {
+				var obj = JSON.parse(decodeURIComponent(options.params));
+				this.actionListNmae = obj.class_name
+				this.actionList = obj[obj.class_name]
 			}
 		},
 		methods: {

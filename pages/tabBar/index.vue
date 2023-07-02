@@ -10,7 +10,7 @@
 				v-model="keyword" :disabled="true" @click="goLink('/pages/index/index')"></u-search>
 		</view>
 		
-		<view v-show="listShow" class="list_padd" v-for="item in getGoodsList.data" :key="item.id" @click="actionSheetShow = true">
+		<view v-show="listShow" class="list_padd" v-for="(item,index) in getGoodsList.data" :key="index" @click="actionSheetShow = true">
 			<view>
 				<view class="burden_num">
 					<text class="text1">-638</text>
@@ -67,7 +67,7 @@
 							</view>
 						</view>
 				</view>
-				<view class="smalllist_display" v-for="item in getGoodsList.data" :key="item.id"   style="padding-bottom: 20rpx;">
+				<view class="smalllist_display" v-for="(item,index) in getGoodsList.data" :key="index"   style="padding-bottom: 20rpx;">
 						<view class="smalllist_width_1">
 							<view class="smalllist_width_1_title">{{item.name}}</view>
 						</view>

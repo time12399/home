@@ -49,14 +49,14 @@
 
 			<view class="list_padd">
 				<view class="display_list">
-					<view class="list_width_1">止损</view>
+					<view class="list_width_1">{{$t("transAdd.index.StopLoss")}}</view>
 					<view class="list_width_1">
 						<view style="display:flex">
 							<view class="list_num_width">
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" placeholder="没有设置" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -68,14 +68,14 @@
 
 			<view class="list_padd">
 				<view class="display_list">
-					<view class="list_width_1">获利</view>
+					<view class="list_width_1">{{$t("transAdd.index.makeProfit")}}</view>
 					<view class="list_width_1">
 						<view style="display:flex">
 							<view class="list_num_width">
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" placeholder="没有设置" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -87,14 +87,14 @@
 
 			<view class="list_padd">
 				<view class="display_list">
-					<view class="list_width_1">偏差</view>
+					<view class="list_width_1">{{$t("transAdd.index.deviation")}}</view>
 					<view class="list_width_1">
 						<view style="display:flex">
 							<view class="list_num_width">
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" placeholder="没有设置" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -143,11 +143,12 @@
 		data() {
 			return {
 				itemList: [{
-					head: "立即执行",
+					head: this.$t("transAdd.index.execute"),
 					open: true,
 					disabled: true
 				}],
-				type: 0
+				type: 0,
+				placeholder:this.$t("transAdd.index.notset")
 			}
 		},
 		methods: {

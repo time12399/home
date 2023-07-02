@@ -4,12 +4,13 @@
 			<view class="searchInput">
 					<u-search :placeholder="searchPlaceholder" v-model="keyword" @change="changeSearch" shape="square" :show-action="true" :action-text="cancellation" @custom="custom"></u-search>
 			</view>
-			<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index" @click="goLink('./search')">
+			<!-- './search' -->
+			<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index" @click="searchListgoLink(item)">
 					<view class="title_list_padding">
 							<view class="list_display">
 								<view class="width1">
-									<view>{{item.text}}</view>
-									<view class="list_display_text">{{item.text}}</view>
+									<view>{{item.class_name}}</view>
+									<view class="list_display_text">{{item.class_name}}</view>
 								</view>
 								<view class="width2">
 										<u-icon name="arrow-right" color="#d3d3d3" size="30"></u-icon>
@@ -51,13 +52,7 @@
 					searchPlaceholder:this.$t("tabBar.index.search"),
 					cancellation:this.$t("common.cancel"),
 					statusBarHeight:uni.getStorageSync('statusBarHeight'),
-					actionList: [{
-						text: 'Forex',
-					}, {
-						text: 'Metals'
-					}, {
-						text: 'Indexes'
-					}],
+					actionList: [],
 					keyword:'',
 					showType:1,
 			}
@@ -70,6 +65,8 @@
 					searchGoods().then(res=>{
 						if(res.code == 1){
 							console.log(res)
+							this.actionList = res.data
+							uni.setStorageSync('actionList', res.data);
 							// this.getGoodsList = res.data
 						}
 					})
@@ -95,6 +92,13 @@
 							this.showType = 1
 					}
 					// console.log(this.keyword)
+				},
+				searchListgoLink(item){
+					const url = './search';
+					const params = encodeURIComponent(JSON.stringify(item));
+					uni.navigateTo({
+					  url: `${url}?params=${params}`
+					});
 				}
 		}
 	}

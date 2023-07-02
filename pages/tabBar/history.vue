@@ -32,11 +32,11 @@
 		</view>
 		<view class="display_content" v-show="current == 0 || current == 2">
 			<view style="width:50%">
-				<view class="content_title_1">入金</view>
-				<view class="content_title_1">利润</view>
-				<view class="content_title_1">库存费</view>
-				<view class="content_title_1">手续费</view>
-				<view class="content_title_1">结余</view>
+				<view class="content_title_1">{{$t("tabBar.history.deposit")}}</view>
+				<view class="content_title_1">{{$t("tabBar.history.profit")}}</view>
+				<view class="content_title_1">{{$t("tabBar.history.cost")}}</view>
+				<view class="content_title_1">{{$t("tabBar.history.commission")}}</view>
+				<view class="content_title_1">{{$t("tabBar.trade.balance")}}</view>
 			</view>
 			<view class="content_right" style="width:50%">
 				<view class="text3">100 000.00</view>
@@ -49,9 +49,9 @@
 
 		<view class="display_content" v-show="current == 1">
 			<view style="width:50%">
-				<view class="content_title_1">成交</view>
-				<view class="content_title_1">取消</view>
-				<view class="content_title_1">总数</view>
+				<view class="content_title_1">{{$t("tabBar.history.deal")}}</view>
+				<view class="content_title_1">{{$t("common.cancel")}}</view>
+				<view class="content_title_1">{{$t("tabBar.history.total")}}</view>
 			</view>
 			<view class="content_right" style="width:50%">
 				<view class="text3">6</view>
@@ -83,7 +83,7 @@
 		<view v-show="sortShow">
 			<view class="sort_view">
 				<view class="sort_padding">
-					<view class="sort_text">全部交易品种</view>
+					<view class="sort_text">{{$t("tabBar.history.All")}}</view>
 					<view class="sort_text">USDCAD</view>
 					<view class="sort_text">USDSEK</view>
 					<view class="sort_text">AUDUSD</view>
@@ -99,13 +99,13 @@
 		data() {
 			return {
 				listArray: [{
-						name: '价位'
+						name: this.$t("tabBar.trade.price")
 					},
 					{
-						name: '订单'
+						name: this.$t("tabBar.history.order")
 					},
 					{
-						name: '成交'
+						name: this.$t("tabBar.history.deal")
 					}
 				],
 				current: 0,
