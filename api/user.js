@@ -10,7 +10,7 @@ export function login(data) {
 
 export function register(data) {
 	return request({
-		url: 'register',
+		url: 'api.login/register',
 		method: 'POST',
 		data
 	})
