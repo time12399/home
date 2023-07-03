@@ -21,3 +21,17 @@ export function searchGoods() {
 		method: 'POST',
 	})
 }
+
+export function getDictImg() {
+	return request({
+		url: 'api.Qrcode/getDictImg',
+		method: 'GET',
+	})
+}
+
+export function delGoods() {
+	return request({
+		url: 'api.Qrcode/delGoods',
+		method: 'POST',
+	})
+}

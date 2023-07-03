@@ -73,5 +73,7 @@
 	"index.cashOut.Audit": "待审核",
 	"index.cashOut.time": "时间",
 	"index.cashOut.Delivery": "提货地址",
-	"index.cashOut.account": "收款人账户"
+	"index.cashOut.account": "收款人账户",
+	"index.deposit.receipt": "收款货币",
+	"index.deposit.Name": "银行名称"
 }

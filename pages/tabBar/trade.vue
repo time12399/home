@@ -28,7 +28,7 @@
 			<u-icon name="more-dot-fill" color="#808080" size="28" @click="actionSheetShow = true"></u-icon>
 		</view>
 
-		<view class="display_content" v-for="item in 5">
+		<view class="display_content" v-for="item in 5" @click="goLink('../index/deposit')">
 			<view style="width:50%">
 				<view class="content_title_2">
 					<text class="content_title">USDCAD,</text>

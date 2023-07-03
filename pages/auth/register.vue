@@ -2,8 +2,10 @@
 	<view class="container">
 		<view class="nav"></view>
 		<view class="head">
-			<text class="back" @click="$utils.comeback()">取消</text>
-			<text class="title">授权</text>
+			<text class="back" @click="$utils.comeback()">
+				{{$t("common.cancel")}}
+			</text>
+			<text class="title">{{$t("common.authorizaion")}}</text>
 		</view>
 		<u-gap height="200"></u-gap>
 		<view class="content">
@@ -12,7 +14,7 @@
 					<u-form-item label-width="70"label="登录" prop="phone" >
 						<u-input 
 							:clearable="false"
-						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" />
+						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" maxlength="11" />
 					</u-form-item>
 					<u-form-item label-width="70" label="密码" prop="password" :border-bottom="false">
 						<u-input :clearable="false" 
@@ -28,7 +30,9 @@
 			<view class="desc">
 				现在在此授权与交易者聊天
 			</view>
-			<u-button class="submit-btn" @click="submit" type="success">注册</u-button>
+			<u-button class="submit-btn" @click="submit" type="success">注冊</u-button>
+			
+			<u-button class="submit-btn register" @click="$utils.handleNavigate('/pages/auth/register')">登录</u-button>
 		</view>
 	</view>
 </template>
@@ -57,7 +61,7 @@
 					this.$refs.password.focus = true
 					return
 				}
-				this.$store.dispatch("user/login", form)
+				this.$store.dispatch("user/register", form)
 			},
 		},
 	}
@@ -65,7 +69,12 @@
 
 <style lang="scss">
 	page{
-		background-color: #000000;
+		// background-color: #000000;
+		background-image:url("../../static/bg_login.png");
+		background-size: 100% 100%;
+		width: 100%;
+		min-height: 100%;
+		background-repeat: no-repeat;
 		color: #ffffff;
 	}
 	.u-form-item{
@@ -109,6 +118,10 @@
 			margin-top: 80rpx;
 			color: #000000;
 			border-radius: 10rpx;
+		}
+		.register{
+			margin-top: 20rpx;
+			background-color: #ffffff;
 		}
 	}
 </style>

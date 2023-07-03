@@ -46,6 +46,7 @@ mutations = {
 	login({ commit }, param) {
 	    login(param).then(response => {
 	    	if(response.code == 1){
+					console.log(response)
 	    		const { data } = response;
 	    		commit('setUserInfo', data)
 	    	}

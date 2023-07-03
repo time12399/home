@@ -73,5 +73,7 @@
 	"index.cashOut.Audit": "audit",
 	"index.cashOut.time": "time",
 	"index.cashOut.Delivery": "delivery address",
-	"index.cashOut.account": "Payee account"
+	"index.cashOut.account": "Payee account",
+	"index.deposit.receipt": "Currency of receipt",
+	"index.deposit.Name": "Bank Name"
 }

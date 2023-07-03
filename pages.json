@@ -99,7 +99,16 @@
 			}
 
 		}
-	],
+	    ,{
+            "path" : "pages/index/deposit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#a5a5a4",
 		"selectedColor": "#1296db",

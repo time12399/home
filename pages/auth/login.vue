@@ -14,7 +14,7 @@
 					<u-form-item label-width="70"label="登录" prop="phone" >
 						<u-input 
 							:clearable="false"
-						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" />
+						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" maxlength="11" />
 					</u-form-item>
 					<u-form-item label-width="70" label="密码" prop="password" :border-bottom="false">
 						<u-input :clearable="false" 
@@ -31,6 +31,8 @@
 				现在在此授权与交易者聊天
 			</view>
 			<u-button class="submit-btn" @click="submit" type="success">登录</u-button>
+			
+			<u-button class="submit-btn register" @click="$utils.handleNavigate('/pages/auth/register')">注冊</u-button>
 		</view>
 	</view>
 </template>
@@ -67,7 +69,12 @@
 
 <style lang="scss">
 	page{
-		background-color: #000000;
+		// background-color: #000000;
+		background-image:url("../../static/bg_login.png");
+		background-size: 100% 100%;
+		width: 100%;
+		min-height: 100%;
+		background-repeat: no-repeat;
 		color: #ffffff;
 	}
 	.u-form-item{
@@ -111,6 +118,10 @@
 			margin-top: 80rpx;
 			color: #000000;
 			border-radius: 10rpx;
+		}
+		.register{
+			margin-top: 20rpx;
+			background-color: #ffffff;
 		}
 	}
 </style>

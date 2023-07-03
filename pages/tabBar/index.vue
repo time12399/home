@@ -10,7 +10,7 @@
 				v-model="keyword" :disabled="true" @click="goLink('/pages/index/index')"></u-search>
 		</view>
 		
-		<view v-show="listShow" class="list_padd" v-for="(item,index) in getGoodsList.data" :key="index" @click="actionSheetShow = true">
+		<view v-show="listShow" class="list_padd" v-for="(item,index) in getGoodsList.data" :key="index" @click="actionSheetShowClick(item.id)">
 			<view>
 				<view class="burden_num">
 					<text class="text1">-638</text>
@@ -105,7 +105,7 @@
 
 <script>
 	// import * as Api from "@/api/index.js"
-	import { getGoods } from "@/api/index.js"
+	import { getGoods,delGoods } from "@/api/index.js"
 
 	export default {
 		data() {
@@ -159,8 +159,25 @@
 			agree() {
 				this.homeShow = false
 			},
+			actionSheetShowClick(id){
+				this.actionSheetShow = true
+				console.log(id)
+			},
 			actionClick(index) {
-				console.log(`点击了第${index + 1}项，内容为：${this.actionList[index].text}`)
+				var index = index + 1
+				// console.log(`点击了第${index + 1}项，内容为：${this.actionList[index].text}`)
+				if(index == 6){
+					// console.log(22)
+					// this.delGoodsInit()
+				}
+			},
+			delGoodsInit(){
+				delGoods().then(res=>{
+					if(res.code == 1){
+						console.log(res)
+						this.getGoodsList = res.data
+					}
+				})
 			},
 			goLink(url) {
 				uni.navigateTo({
