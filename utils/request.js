@@ -20,7 +20,7 @@ function service(options = {}) {
 	return new Promise((resolved, rejected) => {
 		options.success = (res) => {
 			uni.hideLoading()
-			if (res.data.code !== 0) {
+			if (res.data.code !== 1) {
 				if (res.data.code === 401) {
 					removeToken()
 					uni.removeStorageSync('userInfo')
