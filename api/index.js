@@ -29,9 +29,10 @@ export function getDictImg() {
 	})
 }
 
-export function delGoods() {
+export function delGoods(data) {
 	return request({
-		url: 'api.Qrcode/delGoods',
+		url: 'api.Goods/delGoods',
 		method: 'POST',
+		data
 	})
 }
