@@ -32,7 +32,9 @@
 					</view>
 					<view class="title_width_1">
 						<view class="num_title">
-							<view class="num_top">{{item.now_sell_arr[0]}}</view>
+							<view class="num_top" v-show="item.now_sell_status == 0">{{item.now_sell_arr[0]}}</view>
+							<view class="num_top color1" v-show="item.now_sell_status == 1">{{item.now_sell_arr[0]}}</view>
+							<view class="num_top color2" v-show="item.now_sell_status == 2">{{item.now_sell_arr[0]}}</view>
 							<text class="num_bag">{{item.now_sell_arr[1]}}</text>
 							<view class="num_right">{{item.now_sell_arr[2]}}</view>
 						</view>
@@ -40,7 +42,9 @@
 					</view>
 					<view class="title_width_1">
 						<view class="num_title">
-							<view class="num_top">{{item.now_buy_arr[0]}}</view>
+							<view class="num_top" v-show="item.now_buy_status == 0">{{item.now_buy_arr[0]}}</view>
+							<view class="num_top color1" v-show="item.now_buy_status == 1">{{item.now_buy_arr[0]}}</view>
+							<view class="num_top color2" v-show="item.now_buy_status == 2">{{item.now_buy_arr[0]}}</view>
 							<text class="num_bag">{{item.now_buy_arr[1]}}</text>
 							<view class="num_right">{{item.now_buy_arr[2]}}</view>
 						</view>
@@ -182,7 +186,7 @@
 							// data[i].date = data[i].date.split(" ")[1]
 							data[i].show = false
 						}
-						// console.log(111, data)
+						console.log(111, data)
 						this.getGoodsList = data
 
 					}
@@ -311,6 +315,14 @@
 					display: flex;
 					margin-top: -3px;
 					justify-content: end;
+					
+					
+					.color1{
+						color: #196ed9!important;
+					}
+					.color2{
+						color: red!important;
+					}
 				}
 
 				.num_top {

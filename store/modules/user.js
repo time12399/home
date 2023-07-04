@@ -18,7 +18,7 @@ mutations = {
 	setUserInfo(state, info) { 
 		state.hasLogin = true;
 		state.info = info;
-		setToken(info.token)
+		setToken(info.token.token)
 		uni.setStorageSync('userInfo',info)
 		uni.reLaunch({
 			url: "/pages/tabBar/index",
