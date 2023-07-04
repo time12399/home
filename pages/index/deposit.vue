@@ -13,7 +13,7 @@
 								选择网络
 							</view>
 							<view class="input">
-								<u-input v-model="value" type="text" placeholder="请输入网络"/>
+								<u-input v-model="getDictDataValue" type="text" :disabled="true" placeholder="请输入网络"  @click="getDictDataClick"/>
 							</view>
 							<view class="QRcode">
 								<image src="https://2740327403.6ccnzg.site/apxjasjdja/api.Qrcode/getDictImg?type=1" mode=""></image>
@@ -92,11 +92,14 @@
 			
 			<u-picker v-model="pickerShow" mode="selector" :range="selectorObj" range-key="cateName"
 				@confirm="confirm"></u-picker>
+				
+			<u-picker v-model="selectNetworkShow" mode="selector" :range="selectNetwork" range-key="name"
+					@confirm="confirm1"></u-picker>
 	</view>
 </template>
 
 <script>
-	// import { getDictImg } from "@/api/index.js"
+	import { getDictData } from "@/api/index.js"
 	
 	export default {
 		data() {
@@ -119,10 +122,13 @@
 							id: 3
 						}
 					],
+					selectNetworkShow:false,
+					selectNetwork:[],
+					getDictDataValue:""
 			}
 		},
 		onLoad() {
-			// this.getDictImgInit()
+			this.getDictDataInit()
 		},
 		methods: {
 			BankCardClick(index){
@@ -133,14 +139,22 @@
 				this.selectorName = this.selectorObj[e].cateName
 				this.pickerShow = false
 			},
-			// getDictImgInit(){
-			// 	let data = {
-			// 		type: 1,
-			// 	}
-			// 	getDictImg(data).then(res=>{
-			// 		console.log(res)
-			// 	})
-			// },
+			getDictDataInit(){
+				let data = {
+					type: "recharge_pay"
+				}
+				getDictData(data).then(res=>{
+					if(res.code == 1){
+						this.selectNetwork = res.data
+					}
+				})
+			},
+			getDictDataClick(){
+					this.selectNetworkShow = true
+			},
+			confirm1(e){
+				this.getDictDataValue = this.selectNetwork[e].name
+			}
 		}
 	}
 </script>

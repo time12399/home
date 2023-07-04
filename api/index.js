@@ -36,3 +36,11 @@ export function delGoods(data) {
 		data
 	})
 }
+
+export function getDictData(data) {
+	return request({
+		url: 'api.auth.Data/getDictData',
+		method: 'POST',
+		data
+	})
+}
