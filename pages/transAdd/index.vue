@@ -7,7 +7,8 @@
 				</view>
 				<view class="width_2">
 					<view class="nav_padding">
-						<view class="title" @click="goLink('/pages/transAdd/add')">EURUSD <u-icon name="arrow-down" color="#333" size="20"></u-icon> </view>
+						<view class="title" @click="goLink('/pages/transAdd/add')">EURUSD <u-icon name="arrow-down"
+								color="#333" size="20"></u-icon> </view>
 						<view class="xi">Euro vs US Dollar</view>
 					</view>
 				</view>
@@ -56,7 +57,8 @@
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder"
+									placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -75,7 +77,8 @@
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder"
+									placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -94,7 +97,8 @@
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" :placeholder="placeholder" placeholder-class="my-input-placeholder" />
+								<input type="number" :placeholder="placeholder"
+									placeholder-class="my-input-placeholder" />
 							</view>
 							<view class="list_num_width">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
@@ -139,6 +143,9 @@
 </template>
 
 <script>
+	import {
+		findGoodsId
+	} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -148,10 +155,22 @@
 					disabled: true
 				}],
 				type: 0,
-				placeholder:this.$t("transAdd.index.notset")
+				placeholder: this.$t("transAdd.index.notset")
 			}
 		},
+		onLoad(e) {
+			console.log(e.pid)
+			let data = {
+				pid: e.pid
+			}
+			findGoodsId(data).then(res => {
+				if (res.code == 1) {
+					console.log(res)
+				}
+			})
+		},
 		methods: {
+
 			goLink(url) {
 				uni.navigateTo({
 					url: url
