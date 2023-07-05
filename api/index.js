@@ -52,3 +52,19 @@ export function findGoodsId(data) {
 		data
 	})
 }
+
+export function getMyOrder(data) {
+	return request({
+		url: 'api.auth.Order/getMyOrder',
+		method: 'POST',
+		data
+	})
+}
+
+export function addTrade(data) {
+	return request({
+		url: 'api.auth.Order/addTrade',
+		method: 'POST',
+		data
+	})
+}

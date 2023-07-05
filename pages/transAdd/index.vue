@@ -7,9 +7,9 @@
 				</view>
 				<view class="width_2">
 					<view class="nav_padding">
-						<view class="title" @click="goLink('/pages/transAdd/add')">EURUSD <u-icon name="arrow-down"
+						<view class="title" @click="goLink('/pages/transAdd/add')">{{findGoodsData.name}} <u-icon name="arrow-down"
 								color="#333" size="20"></u-icon> </view>
-						<view class="xi">Euro vs US Dollar</view>
+						<view class="xi">{{findGoodsData.title}}</view>
 					</view>
 				</view>
 				<view class="width_1">
@@ -43,7 +43,7 @@
 			<view class="display_list">
 				<view class="list_width price_color_1">-0.5</view>
 				<view class="list_width price_color_1">-0.1</view>
-				<view class="list_width">0.01</view>
+				<view class="list_width">{{myamount_}}</view>
 				<view class="list_width price_color_1">+0.1</view>
 				<view class="list_width price_color_1">+0.5</view>
 			</view>
@@ -110,27 +110,27 @@
 		</view>
 
 		<view class="num_display">
-			<view class="num_width">
+			<view class="num_width" v-if="findGoodsData.now_sell">
 				<view class="num_title color_text_1">
-					<view class="num_top">1.08</view>
-					<text class="num_bag">89</text>
-					<view class="num_right">8</view>
+					<view class="num_top">{{findGoodsData.now_sell[0]}}</view>
+					<text class="num_bag">{{findGoodsData.now_sell[1]}}</text>
+					<view class="num_right">{{findGoodsData.now_sell[2]}}</view>
 				</view>
 			</view>
-			<view class="num_width">
+			<view class="num_width" v-if="findGoodsData.now_buy">
 				<view class="num_title color_text_2">
-					<view class="num_top">1.08</view>
-					<text class="num_bag">89</text>
-					<view class="num_right">8</view>
+					<view class="num_top">{{findGoodsData.now_buy[0]}}</view>
+					<text class="num_bag">{{findGoodsData.now_buy[1]}}</text>
+					<view class="num_right">{{findGoodsData.now_buy[2]}}</view>
 				</view>
 			</view>
 		</view>
 
 		<view v-show="type == 0" class="button_display">
-			<view class="button_width button_color_1">
+			<view class="button_width button_color_1" @click="SellClick(2)">
 				<view>Sell</view>
 			</view>
-			<view class="button_width button_color_2">
+			<view class="button_width button_color_2" @click="SellClick(1)">
 				<view>Buy</view>
 			</view>
 		</view>
@@ -144,8 +144,10 @@
 
 <script>
 	import {
-		findGoodsId
+		findGoodsId,
+		addTrade
 	} from "@/api/index.js"
+	import md5 from '@/utils/md5.js'
 	export default {
 		data() {
 			return {
@@ -155,17 +157,21 @@
 					disabled: true
 				}],
 				type: 0,
-				placeholder: this.$t("transAdd.index.notset")
+				placeholder: this.$t("transAdd.index.notset"),
+				findGoodsData:[],
+				pid:'',
+				myamount_:0.01
 			}
 		},
 		onLoad(e) {
-			console.log(e.pid)
+			this.pid = e.pid
 			let data = {
 				pid: e.pid
 			}
 			findGoodsId(data).then(res => {
 				if (res.code == 1) {
-					console.log(res)
+					// console.log(res)
+					this.findGoodsData = res.data
 				}
 			})
 		},
@@ -183,6 +189,33 @@
 			},
 			BuyClick() {
 				this.type = 1
+			},
+			SellClick(status){
+				if(status == 2){
+					var price = this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] + this.findGoodsData.now_sell[2]
+				}else{
+					var price = this.findGoodsData.now_buy[0] + this.findGoodsData.now_buy[1] + this.findGoodsData.now_buy[2]
+				}
+				let data = {
+					status:status,//卖出2  买入1
+					pid:this.pid,
+					time:Math.round(new Date() / 1000),
+					type:1, //立即执行 1
+					price:price,
+					myamount_:this.myamount_,
+				}
+				uni.setStorageSync('p_token', md5.hex_md5(this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] + this.findGoodsData.now_sell[2] + 'GMXskC3s2m'))
+				addTrade(data).then(res => {
+					if (res.code == 1) {
+						console.log(res)
+					}else{
+						// console.log(11,res)
+						uni.showToast({
+							title: res.info,
+							icon: 'none',
+						})  
+					}
+				})
 			}
 		}
 	}

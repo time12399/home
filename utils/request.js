@@ -10,6 +10,10 @@ function service(options = {}) {
 	if (getToken()) {
 		options.header["api-token"] = `${getToken()}`
 	}
+	if(uni.getStorageSync('p_token')){
+		options.header["p_token"] = uni.getStorageSync('p_token')
+		uni.setStorageSync('p_token', '')
+	}
 	options.header.language = uni.getStorageSync("currLanguage")?
 		uni.getStorageSync("currLanguage"):uni.getStorageSync("localeLan")	// 当前语言
 	options.data = options.data? options.data: {}

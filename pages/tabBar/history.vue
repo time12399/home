@@ -59,8 +59,27 @@
 				<view class="text3">6</view>
 			</view>
 		</view>
+		
+		<view class="display_content" v-for="item in getMyOrderData.data" @click="goLink('../index/cashOut')">
+			<view style="width:50%">
+				<view class="content_title_2">
+					<text class="content_title">{{item.name}},</text>
+					<text :class="item.k_buy_status == 1 ?'text1' : 'text5'">buy {{item.k_num}}</text>
+				</view>
+				<view class="content_title_2">
+					<text class="text4" v-show="current == 0">{{item.create_price}} → {{item.finish_price}}</text>
+					<text class="text4" v-show="current == 1">0.10/0.10 at 1.31564</text>
+					<text class="text4" v-show="current == 2">0.10 at 1.31564</text>
+				</view>
+			</view>
+			<view class="content_right" style="width:50%">
+				<view class="text2" style="font-weight: bold;">{{item.user_time_end}}</view>
+				<view :class="item.k_iswin == 1 ?'text1' : 'text5'" style="margin-top: 5rpx;">{{item.k_money}}</view>
+			</view>
+		</view>
+		
 
-		<view class="display_content" v-for="item in 15" @click="goLink('../index/cashOut')">
+		<!-- <view class="display_content" v-for="item in 15" @click="goLink('../index/cashOut')">
 			<view style="width:50%">
 				<view class="content_title_2">
 					<text class="content_title">USDCAD,</text>
@@ -76,7 +95,7 @@
 				<view class="text2" style="font-weight: bold;">2023.06.26 16:09:57</view>
 				<view class="text1" style="margin-top: 5rpx;">0.38</view>
 			</view>
-		</view>
+		</view> -->
 
 
 		<!-- 左上角弹窗 -->
@@ -95,6 +114,9 @@
 </template>
 
 <script>
+	import {
+		getMyOrder
+	} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -109,13 +131,25 @@
 					}
 				],
 				current: 0,
-				sortShow: false
+				sortShow: false,
+				getMyOrderData:[],
 			}
 		},
 		onLoad() {
-
+			this.getMyOrderInit()
 		},
 		methods: {
+			getMyOrderInit(){
+				let data = {
+					page: 1
+				}
+				getMyOrder(data).then(res => {
+					if (res.code == 1) {
+						console.log(res)
+						this.getMyOrderData = res.data
+					}
+				})
+			},
 			sectionChange(index) {
 				this.current = index
 			},
@@ -192,6 +226,10 @@
 				font-weight: bold;
 				color: #196ed9;
 			}
+			.text5{
+				font-weight: bold;
+				color: red;
+			}
 
 			.text4 {
 				font-size: 26rpx;
@@ -207,7 +245,11 @@
 				font-weight: bold;
 				color: #196ed9;
 			}
-
+			.text5{
+				font-weight: bold;
+				color: red;
+			}
+			
 			.text2 {
 				font-size: 23rpx;
 				color: #808080;
