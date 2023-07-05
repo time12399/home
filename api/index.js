@@ -44,3 +44,11 @@ export function getDictData(data) {
 		data
 	})
 }
+
+export function findGoodsId(data) {
+	return request({
+		url: 'api.goods/findGoodsId',
+		method: 'POST',
+		data
+	})
+}
