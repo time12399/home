@@ -1,150 +1,166 @@
 <template>
 	<view>
-			<view :style="{ height: statusBarHeight + 'px' }"></view>
-			<view class="searchInput">
-					<u-search :placeholder="searchPlaceholder" v-model="keyword" @change="changeSearch" shape="square" :show-action="true" :action-text="cancellation" @custom="custom"></u-search>
-			</view>
-			<!-- './search' -->
-			<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index" @click="searchListgoLink(item)">
-					<view class="title_list_padding">
-							<view class="list_display">
-								<view class="width1">
-									<view>{{item.class_name}}</view>
-									<view class="list_display_text">{{item.class_name}}</view>
-								</view>
-								<view class="width2">
-										<u-icon name="arrow-right" color="#d3d3d3" size="30"></u-icon>
-								</view>
-							</view>
+		<view :style="{ height: statusBarHeight + 'px' }"></view>
+		<view class="searchInput">
+			<u-search :placeholder="searchPlaceholder" v-model="keyword" @change="changeSearch" shape="square"
+				:show-action="true" :action-text="cancellation" @custom="custom"></u-search>
+		</view>
+		<!-- './search' -->
+		<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index"
+			@click="searchListgoLink(item)">
+			<view class="title_list_padding">
+				<view class="list_display">
+					<view class="width1">
+						<view>{{item.class_name}}</view>
+						<view class="list_display_text">{{item.class_name}}</view>
 					</view>
-			</view>
-			<view v-show="showType == 2" class="search_index_padding" v-for="item in 2">
-					<view class="search_index_title">
-							Indexes
+					<view class="width2">
+						<u-icon name="arrow-right" color="#d3d3d3" size="30"></u-icon>
 					</view>
-					<view class="title_list" v-for="(item,index) in 2" :key="index" @click="goLink('./details')">
-							<view class="title_list_padding" >
-									<view class="list_display">
-										<view class="width_1">
-												<u-icon name="plus-circle-fill" color="#64c566" size="45" top="10"></u-icon>
-										</view>
-										<view class="width_2">
-											<view>HSI50</view>
-											<view class="list_display_text">HSI 50 Index</view>
-										</view>
-										<view class="width2">
-												<u-icon name="arrow-right" color="#d3d3d3" size="30" top="10"></u-icon>
-										</view>
-									</view>
-							</view>
-					</view>
+				</view>
 			</view>
+		</view>
+		<view v-show="showType == 2" class="search_index_padding" v-for="item in filteredData" :key="item.class_name">
+			<view class="search_index_title">
+				{{item.class_name}}
+			</view>
+			<view class="title_list" v-for="(item1,index1) in item[item.class_name]" :key="item1.id"
+				@click="goLink('./details')">
+				<view class="title_list_padding">
+					<view class="list_display">
+						<view class="width_1">
+							<u-icon name="plus-circle-fill" color="#64c566" size="45" top="10"></u-icon>
+						</view>
+						<view class="width_2">
+							<view>{{item1.name}}</view>
+							<view class="list_display_text">HSI 50 Index</view>
+						</view>
+						<view class="width2">
+							<u-icon name="arrow-right" color="#d3d3d3" size="30" top="10"></u-icon>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
-	import { searchGoods } from "@/api/index.js"
-	
-	
+	import {
+		searchGoods
+	} from "@/api/index.js"
+
+
 	export default {
 		data() {
 			return {
-					searchPlaceholder:this.$t("tabBar.index.search"),
-					cancellation:this.$t("common.cancel"),
-					statusBarHeight:uni.getStorageSync('statusBarHeight'),
-					actionList: [],
-					keyword:'',
-					showType:1,
+				searchPlaceholder: this.$t("tabBar.index.search"),
+				cancellation: this.$t("common.cancel"),
+				statusBarHeight: uni.getStorageSync('statusBarHeight'),
+				actionList: [],
+				keyword: '',
+				showType: 1,
+				filteredData: []
 			}
 		},
 		onLoad() {
 			this.searchGoodsInit()
 		},
 		methods: {
-				searchGoodsInit(){
-					searchGoods().then(res=>{
-						if(res.code == 1){
-							console.log(res)
-							this.actionList = res.data
-							uni.setStorageSync('actionList', res.data);
-							// this.getGoodsList = res.data
-						}
-					})
-				},
-				custom(){
-					uni.navigateBack({
-						delta: 1
-					});
-				},
-				goLink(url) {
-					uni.navigateTo({
-						url: url
-					})
-				},
-				actionListClick(index){
-						console.log(index)
-				},
-				changeSearch(e){
-					this.keyword = e
-					if(this.keyword){
-							this.showType = 2
-					}else{
-							this.showType = 1
+			searchGoodsInit() {
+				searchGoods().then(res => {
+					if (res.code == 1) {
+						console.log(res)
+						this.actionList = res.data
+						uni.setStorageSync('actionList', res.data);
+						// this.getGoodsList = res.data
 					}
-					// console.log(this.keyword)
-				},
-				searchListgoLink(item){
-					const url = './search';
-					const params = encodeURIComponent(JSON.stringify(item));
-					uni.navigateTo({
-					  url: `${url}?params=${params}`
+				})
+			},
+			custom() {
+				uni.navigateBack({
+					delta: 1
+				});
+			},
+			goLink(url) {
+				uni.navigateTo({
+					url: url
+				})
+			},
+			actionListClick(index) {
+				console.log(index)
+			},
+			changeSearch(e) {
+				this.keyword = e
+				if (this.keyword) {
+					this.showType = 2
+					var data = uni.getStorageSync('actionList');
+					this.filteredData = data.filter(item => {
+						return item.class_name.toLowerCase().includes(this.keyword.toLowerCase());
 					});
+					console.log(11, this.filteredData)
+				} else {
+					this.showType = 1
 				}
+				// console.log(this.keyword)
+			},
+			searchListgoLink(item) {
+				const url = './search';
+				const params = encodeURIComponent(JSON.stringify(item));
+				uni.navigateTo({
+					url: `${url}?params=${params}`
+				});
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 	.searchInput {
-			padding: 20rpx;
+		padding: 20rpx;
 	}
-	.title_list{
+
+	.title_list {
 		padding: 0 20rpx 0 20rpx;
 		background: #ffffff;
-		
-		.title_list_padding{
+
+		.title_list_padding {
 			padding: 20rpx 0 20rpx 0;
 			// border-bottom: 1rpx solid #e8e8e8;
-			
-			.list_display{
+
+			.list_display {
 				display: flex;
 				font-weight: bold;
-				.width_1{
+
+				.width_1 {
 					width: 10%;
 				}
-				.width_2{
+
+				.width_2 {
 					width: 80%;
 				}
-				
-				.width1{
+
+				.width1 {
 					width: 90%;
 				}
-				.width2{
+
+				.width2 {
 					width: 10%;
 					text-align: end;
 				}
-				.list_display_text{
+
+				.list_display_text {
 					font-size: 15rpx;
-					font-weight: 500!important;
+					font-weight: 500 !important;
 				}
 			}
 		}
 	}
 
-	.search_index_padding{
+	.search_index_padding {
 		padding: 20rpx;
-		
-		.search_index_title{
+
+		.search_index_title {
 			font-weight: bold;
 			color: #8a8a8a;
 		}
