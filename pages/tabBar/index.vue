@@ -83,7 +83,7 @@
 				</view>
 			</view>
 			<u-swipe-action :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
-				@open="open(index)" :index="item.id" @click="deleClick" class="smalllist_padd">
+				@open="open(index)" :index="'smalll_' + index" @click="deleClick" class="smalllist_padd">
 				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
 					<view class="smalllist_width_2 smalllist_nei">
 						<view class="smalllist_width">
