@@ -27,29 +27,36 @@
 			<view class="price_width">{{$t("tabBar.trade.price")}}</view>
 			<u-icon name="more-dot-fill" color="#808080" size="28" @click="actionSheetShow = true"></u-icon>
 		</view>
+		
+		<!--  @click="goLink('../index/deposit')" -->
 
-		<view class="display_content" v-for="item in 5" @click="goLink('../index/deposit')">
+		<view class="display_content" v-for="item in getMyNowOrderData.data" :key="item.id" @click="actionListShow = true">
 			<view style="width:50%">
 				<view class="content_title_2">
-					<text class="content_title">USDCAD,</text>
-					<text class="text1">buy 0.10</text>
+					<text class="content_title">{{item.name}},</text>
+					<text :class="item.k_buy_status == 1 ?'text1' : 'text5'">buy {{item.k_num}}</text>
 				</view>
 				<view class="content_title_2">
-					<text class="text4">1.31564 → 1.31569</text>
+					<text class="text4">{{item.create_price}} → {{item.finish_price}}</text>
 				</view>
 			</view>
 			<view class="content_right" style="width:50%">
-				<view class="text2" style="font-weight: bold;">2023.06.26 16:09:57</view>
-				<view class="text1" style="margin-top: 5rpx;">0.38</view>
+				<view :class="item.k_iswin == 1 ?'text1' : 'text5'" style="margin-top: 5rpx;">{{item.k_money}}</view>
+				<view class="text2" style="font-weight: bold;">{{item.user_time_end}}</view>
 			</view>
 		</view>
 
 		<u-action-sheet :list="actionList" v-model="actionSheetShow" border-radius="30"
 			@click="actionClick" :cancelText="cancelText"></u-action-sheet>
+		<u-action-sheet :list="actionListData" v-model="actionListShow" border-radius="30"
+			></u-action-sheet>
 	</view>
 </template>
 
 <script>
+	import {
+		getMyOrdernow
+	} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -61,11 +68,27 @@
 				}, {
 					text: this.$t("tabBar.trade.positions")
 				}],
+				
+				actionListShow: false,
+				actionListData: [{
+					text: '平仓',
+				}, {
+					text: '修改价位'
+				}, {
+					text: '交易'
+				}, {
+					text: '市场深度'
+				}, {
+					text: '图表'
+				}, {
+					text: '批量操作...'
+				}],
 				cancelText:this.$t("common.cancel"),
+				getMyNowOrderData:[]
 			}
 		},
 		onLoad() {
-
+			this.getMyNowOrderInit()
 		},
 		methods: {
 			goLink(url) {
@@ -76,6 +99,17 @@
 			// 价位操作
 			actionClick(index) {
 				console.log(`点击了第${index + 1}项，内容为：${this.actionList[index].text}`)
+			},
+			getMyNowOrderInit(){
+				let data = {
+					page: 1
+				}
+				getMyOrdernow(data).then(res => {
+					if (res.code == 1) {
+						console.log(res)
+						this.getMyNowOrderData = res.data
+					}
+				})
 			}
 		}
 	}
@@ -107,6 +141,10 @@
 				font-weight: bold;
 				color: #196ed9;
 			}
+			.text5{
+				font-weight: bold;
+				color: red;
+			}
 
 			.text4 {
 				font-size: 26rpx;
@@ -131,6 +169,11 @@
 			.text3 {
 				font-weight: bold;
 				padding-bottom: 10rpx;
+			}
+			
+			.text5{
+				font-weight: bold;
+				color: red;
 			}
 		}
 	}

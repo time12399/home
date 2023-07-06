@@ -1,13 +1,13 @@
 <template>
 	<view>
 			<u-navbar :title="actionListNmae" back-icon-color="#196ed9" :title-bold="true" title-color="#333"></u-navbar>
-			<view class="title_list" v-for="(item,index) in actionList" @click="goLink('./details')">
+			<view class="title_list" v-for="(item,index) in actionList">
 					<view class="title_list_padding" >
 							<view class="list_display">
-								<view class="width_1">
+								<view class="width_1" @click="addData(item.id)">
 										<u-icon name="plus-circle-fill" color="#64c566" size="45" top="10"></u-icon>
 								</view>
-								<view class="width_2">
+								<view class="width_2"  @click="goLink('./details')">
 									<view>{{item.name}}</view>
 									<view class="list_display_text">HSI 50 Index</view>
 								</view>
@@ -21,6 +21,9 @@
 </template>
 
 <script>
+	import {
+		addGoods
+	} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -42,6 +45,19 @@
 						url: url
 					})
 				},
+				addData(id){
+					let data = {
+						pid:id
+					}
+					addGoods(data).then(res => {
+						if (res.code == 1) {
+							uni.showToast({
+								title: '添加商品成功',
+								icon:'none',
+							});
+						}
+					})
+				}
 		}
 	}
 </script>

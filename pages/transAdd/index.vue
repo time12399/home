@@ -170,7 +170,7 @@
 			}
 			findGoodsId(data).then(res => {
 				if (res.code == 1) {
-					// console.log(res)
+					console.log(res)
 					this.findGoodsData = res.data
 				}
 			})

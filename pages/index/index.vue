@@ -3,7 +3,7 @@
 		<view :style="{ height: statusBarHeight + 'px' }"></view>
 		<view class="searchInput">
 			<u-search :placeholder="searchPlaceholder" v-model="keyword" @change="changeSearch" shape="square"
-				:show-action="true" :action-text="cancellation" @custom="custom"></u-search>
+				:show-action="true" :action-text="cancellation" @custom="custom" @clear="clear"></u-search>
 		</view>
 		<!-- './search' -->
 		<view v-show="showType == 1" class="title_list" v-for="(item,index) in actionList" :key="index"
@@ -24,14 +24,13 @@
 			<view class="search_index_title">
 				{{item.class_name}}
 			</view>
-			<view class="title_list" v-for="(item1,index1) in item[item.class_name]" :key="item1.id"
-				@click="goLink('./details')">
+			<view class="title_list" v-for="(item1,index1) in item" :key="item1.id">
 				<view class="title_list_padding">
 					<view class="list_display">
-						<view class="width_1">
+						<view class="width_1" @click="addData(item1.id)">
 							<u-icon name="plus-circle-fill" color="#64c566" size="45" top="10"></u-icon>
 						</view>
-						<view class="width_2">
+						<view class="width_2" @click="goLink('./details')">
 							<view>{{item1.name}}</view>
 							<view class="list_display_text">HSI 50 Index</view>
 						</view>
@@ -47,7 +46,8 @@
 
 <script>
 	import {
-		searchGoods
+		searchGoods,
+		addGoods
 	} from "@/api/index.js"
 
 
@@ -70,7 +70,7 @@
 			searchGoodsInit() {
 				searchGoods().then(res => {
 					if (res.code == 1) {
-						console.log(res)
+						// console.log(res)
 						this.actionList = res.data
 						uni.setStorageSync('actionList', res.data);
 						// this.getGoodsList = res.data
@@ -91,18 +91,33 @@
 				console.log(index)
 			},
 			changeSearch(e) {
+				this.filteredData = []
 				this.keyword = e
 				if (this.keyword) {
 					this.showType = 2
 					var data = uni.getStorageSync('actionList');
-					this.filteredData = data.filter(item => {
-						return item.class_name.toLowerCase().includes(this.keyword.toLowerCase());
-					});
-					console.log(11, this.filteredData)
+					
+					var newList = []
+					for(let i = 0; i < data.length; i ++) {
+							newList = data[i][data[i].class_name].filter(item => {
+								if(item.name.toLowerCase().includes(this.keyword.toLowerCase())){
+									return item.name.toLowerCase().includes(this.keyword.toLowerCase());
+								}
+							});
+							if(newList.length){
+								newList.class_name = data[i].class_name	
+							}
+							this.filteredData.push(newList)	
+					}
+					// console.log(111,this.filteredData)
 				} else {
 					this.showType = 1
 				}
 				// console.log(this.keyword)
+			},
+			clear(){
+				this.filteredData = []
+				// console.log(222,this.filteredData)
 			},
 			searchListgoLink(item) {
 				const url = './search';
@@ -110,6 +125,19 @@
 				uni.navigateTo({
 					url: `${url}?params=${params}`
 				});
+			},
+			addData(id){
+				let data = {
+					pid:id
+				}
+				addGoods(data).then(res => {
+					if (res.code == 1) {
+						uni.showToast({
+							title: '添加商品成功',
+							icon:'none',
+						});
+					}
+				})
 			}
 		}
 	}

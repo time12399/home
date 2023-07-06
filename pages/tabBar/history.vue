@@ -73,8 +73,8 @@
 				</view>
 			</view>
 			<view class="content_right" style="width:50%">
-				<view class="text2" style="font-weight: bold;">{{item.user_time_end}}</view>
-				<view :class="item.k_iswin == 1 ?'text1' : 'text5'" style="margin-top: 5rpx;">{{item.k_money}}</view>
+				<view :class="item.k_iswin == 1 ?'text1' : 'text5'" style="font-weight: bold;">{{item.k_money}}</view>
+				<view class="text2" style="margin-top: 5rpx;">{{item.user_time_end}}</view>
 			</view>
 		</view>
 		

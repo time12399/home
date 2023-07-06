@@ -68,3 +68,20 @@ export function addTrade(data) {
 		data
 	})
 }
+
+
+export function addGoods(data) {
+	return request({
+		url: 'api.Goods/addGoods',
+		method: 'POST',
+		data
+	})
+}
+
+export function getMyOrdernow(data) {
+	return request({
+		url: 'api.auth.Order/getMyOrdernow',
+		method: 'POST',
+		data
+	})
+}

@@ -82,7 +82,7 @@
 					</view>
 				</view>
 			</view>
-			<u-swipe-action :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
+			<u-swipe-action :show="item.show" :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
 				@open="open(index)" :index="'smalll_' + index" @click="deleClick" class="smalllist_padd">
 				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
 					<view class="smalllist_width_2 smalllist_nei">
@@ -156,7 +156,7 @@
 				getGoodsList: [],
 				deleteId: "",
 				options: [{
-						text: '订单',
+						text: '交易',
 						color: '#ffffff',
 						style: {
 							backgroundColor: '#9faabc'
@@ -170,7 +170,7 @@
 						}
 					},
 					{
-						text: 'K线图',
+						text: '图表',
 						style: {
 							color: '#ffffff',
 							backgroundColor: '#3478f6'
@@ -185,6 +185,9 @@
 				this.homeShow = true
 				uni.setStorageSync('home_popup', true);
 			}
+			this.getGoodsInit()
+		},
+		onShow(){
 			this.getGoodsInit()
 		},
 		methods: {
@@ -203,7 +206,7 @@
 							// data[i].date = data[i].date.split(" ")[1]
 							data[i].show = false
 						}
-						console.log(111, data)
+						// console.log(111, data)
 						this.getGoodsList = data
 
 					}
