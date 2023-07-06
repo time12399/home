@@ -9,7 +9,7 @@
 			<u-search :placeholder="searchPlaceholder" shape="square" :clearabled="true" :show-action="false"
 				v-model="keyword" :disabled="true" @click="goLink('/pages/index/index')"></u-search>
 		</view>
-		<u-swipe-action :show="item.show" :options="options" v-show="listShow" class="list_padd"
+		<u-swipe-action :show="item.show" :options="options" v-if="listShow" class="list_padd"
 			v-for="(item,index) in getGoodsList" :key="index" @content-click="actionSheetShowClick(index)"
 			@open="open(index)" :index="item.id" @click="deleClick">
 			<!-- ()index,item.id -->
@@ -57,7 +57,8 @@
 				</view>
 			</view>
 		</u-swipe-action>
-		<view v-show="listShow == false" class="smalllist_padd">
+		<u-swipe-action v-if="listShow == false" :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
+			@open="open(index)" :index="item.id" @click="deleClick" class="smalllist_padd">
 			<view class="smalllist_display" style="padding-bottom: 30rpx;">
 				<!-- <view class="smalllist_width_1">
 					<view class="">{{$t("tabBar.index.list.transaction")}}</view>
@@ -100,7 +101,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</u-swipe-action>
 
 		<u-popup v-model="homeShow" mode="center" length="80%" border-radius="20">
 			<view class="popup_padding">
