@@ -57,52 +57,55 @@
 				</view>
 			</view>
 		</u-swipe-action>
-		<u-swipe-action v-if="listShow == false" :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
-			@open="open(index)" :index="item.id" @click="deleClick" class="smalllist_padd">
-			<view class="smalllist_display" style="padding-bottom: 30rpx;">
-				<!-- <view class="smalllist_width_1">
-					<view class="">{{$t("tabBar.index.list.transaction")}}</view>
-				</view> -->
-				<view class="smalllist_width_2">
-					<view class="smalllist_width">
-						{{$t("tabBar.index.list.transaction")}}
-					</view>
-					<view class="smalllist_width">
-						{{$t("tabBar.index.list.sellingPrice")}}
-					</view>
-					<view class="smalllist_width">
-						{{$t("tabBar.index.list.purchasingPrice")}}
-					</view>
-					<view class="smalllist_width">
-						{{$t("tabBar.index.list.sun")}}%
-					</view>
-					<view class="smalllist_width">
-						{{$t("tabBar.index.list.MaxPrice")}}
-					</view>
-				</view>
-			</view>
-			<view class="smalllist_display" style="padding-bottom: 20rpx;" v-for="(item,index) in getGoodsList"
-				:key="index" @click="actionSheetShowClick(index)">
-				<view class="smalllist_width_2 smalllist_nei">
-					<view class="smalllist_width">
-						{{item.name}}
-					</view>
-					<view class="smalllist_width smalllist_color_1">
-						{{item.now_sell}}
-					</view>
-					<view class="smalllist_width smalllist_color_2">
-						{{item.now_buy}}
-					</view>
-					<view class="smalllist_width smalllist_color_1">
-						{{item.k_percent}}%
-					</view>
-					<view class="smalllist_width">
-						{{item.k_top}}
+		<block v-if="listShow == false" >
+			<view class="smalllist_padd">
+				<view class="smalllist_display" style="padding-bottom: 30rpx;">
+					<!-- <view class="smalllist_width_1">
+						<view class="">{{$t("tabBar.index.list.transaction")}}</view>
+					</view> -->
+					<view class="smalllist_width_2">
+						<view class="smalllist_width">
+							{{$t("tabBar.index.list.transaction")}}
+						</view>
+						<view class="smalllist_width">
+							{{$t("tabBar.index.list.sellingPrice")}}
+						</view>
+						<view class="smalllist_width">
+							{{$t("tabBar.index.list.purchasingPrice")}}
+						</view>
+						<view class="smalllist_width">
+							{{$t("tabBar.index.list.sun")}}%
+						</view>
+						<view class="smalllist_width">
+							{{$t("tabBar.index.list.MaxPrice")}}
+						</view>
 					</view>
 				</view>
 			</view>
-		</u-swipe-action>
-
+			<u-swipe-action :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
+				@open="open(index)" :index="item.id" @click="deleClick" class="smalllist_padd">
+				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
+					<view class="smalllist_width_2 smalllist_nei">
+						<view class="smalllist_width">
+							{{item.name}}
+						</view>
+						<view class="smalllist_width smalllist_color_1">
+							{{item.now_sell}}
+						</view>
+						<view class="smalllist_width smalllist_color_2">
+							{{item.now_buy}}
+						</view>
+						<view class="smalllist_width smalllist_color_1">
+							{{item.k_percent}}%
+						</view>
+						<view class="smalllist_width">
+							{{item.k_top}}
+						</view>
+					</view>
+				</view>
+			</u-swipe-action>
+		</block>
+		
 		<u-popup v-model="homeShow" mode="center" length="80%" border-radius="20">
 			<view class="popup_padding">
 				<view class="popup_title">{{$t("tabBar.index.title")}}Maeta Trader 5！</view>
