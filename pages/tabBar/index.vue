@@ -11,8 +11,8 @@
 		</view>
 		<u-swipe-action :show="item.show" :options="options" v-show="listShow" class="list_padd"
 			v-for="(item,index) in getGoodsList" :key="index" @content-click="actionSheetShowClick(index)"
-			@open="open(index)" @click="deleClick(index,item.id)">
-
+			@open="open(index)" :index="item.id" @click="deleClick">
+			<!-- ()index,item.id -->
 			<view>
 				<view class="burden_num">
 					<text class="text1">{{item.left_v}}</text>
@@ -59,10 +59,13 @@
 		</u-swipe-action>
 		<view v-show="listShow == false" class="smalllist_padd">
 			<view class="smalllist_display" style="padding-bottom: 30rpx;">
-				<view class="smalllist_width_1">
+				<!-- <view class="smalllist_width_1">
 					<view class="">{{$t("tabBar.index.list.transaction")}}</view>
-				</view>
+				</view> -->
 				<view class="smalllist_width_2">
+					<view class="smalllist_width">
+						{{$t("tabBar.index.list.transaction")}}
+					</view>
 					<view class="smalllist_width">
 						{{$t("tabBar.index.list.sellingPrice")}}
 					</view>
@@ -77,12 +80,12 @@
 					</view>
 				</view>
 			</view>
-			<view class="smalllist_display" v-for="(item,index) in getGoodsList" :key="index"
-				style="padding-bottom: 20rpx;">
-				<view class="smalllist_width_1">
-					<view class="smalllist_width_1_title">{{item.name}}</view>
-				</view>
+			<view class="smalllist_display" style="padding-bottom: 20rpx;" v-for="(item,index) in getGoodsList"
+				:key="index" @click="actionSheetShowClick(index)">
 				<view class="smalllist_width_2 smalllist_nei">
+					<view class="smalllist_width">
+						{{item.name}}
+					</view>
 					<view class="smalllist_width smalllist_color_1">
 						{{item.now_sell}}
 					</view>
@@ -148,19 +151,25 @@
 				listShow: true,
 				getGoodsList: [],
 				deleteId: "",
-				options: [
-					// {
-					// 	text: '收藏',
-					// 	style: {
-					// 		backgroundColor: '#007aff'
-					// 	}
-					// },
+				options: [{
+						text: '订单',
+						color: '#ffffff',
+						style: {
+							backgroundColor: '#9faabc'
+						}
+					},
 					{
 						text: '删除',
 						style: {
-							marginLeft: '5px',
-							color: '#333333',
-							backgroundColor: '#f2f2f2'
+							color: '#ffffff',
+							backgroundColor: '#eb4d3d'
+						}
+					},
+					{
+						text: 'K线图',
+						style: {
+							color: '#ffffff',
+							backgroundColor: '#3478f6'
 						}
 					}
 				]
@@ -224,8 +233,10 @@
 					}
 				})
 			},
-			deleClick(index, id) {
-				this.delGoodsInit(id)
+			deleClick(index, index1) {
+				if (index1 == 1) {
+					this.delGoodsInit(index) //删除
+				}
 			},
 			goLink(url) {
 				uni.navigateTo({
@@ -383,7 +394,7 @@
 		padding: 20rpx;
 
 		.smalllist_display {
-			display: flex;
+			display: block;
 			font-size: 28rpx;
 
 
@@ -396,12 +407,12 @@
 			}
 
 			.smalllist_width_2 {
-				width: 80%;
+				width: 100%;
 				display: flex;
 				text-align: center;
 
 				.smalllist_width {
-					width: 25%;
+					width: 20%;
 				}
 
 				.smalllist_color_1 {
