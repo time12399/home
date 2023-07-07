@@ -1,16 +1,16 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" title="Ajada" :border-bottom="false"></u-navbar>
+		<u-navbar :is-back="false" title="我的" :border-bottom="false"></u-navbar>
 		<view class="u-m-t-20 b-b-1">
 			<view>
-				
+
 			</view>
 			<view class="item viewFlex">
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
 				<view class="content viewFlex">
-					Dasdas
+					账号
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
 			</view>
@@ -18,28 +18,37 @@
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
-				<view class="content viewFlex">
+				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/setup/language')">
 					<view class="">
 						<view>
-							dasdas
+							语言
 						</view>
 						<view class="desc">
-							dasdas
+							简体中文
 						</view>
 					</view>
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
 			</view>
-			
+
 		</view>
-		
+
 		<view class="u-m-t-40 b-b-1">
 			<view class="item viewFlex">
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
 				<view class="content viewFlex">
-					dasdas
+					充值
+				</view>
+				<u-icon color="#555555" name="arrow-right"></u-icon>
+			</view>
+			<view class="item viewFlex">
+				<view class="viewFlex icon">
+					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
+				</view>
+				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/setup/withdrawal')">
+					提现
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
 			</view>
@@ -48,18 +57,11 @@
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
 				<view class="content viewFlex">
-					<view class="">
-						<view>
-							Desc
-						</view>
-						<view class="desc">
-							邮箱注册
-						</view>
-					</view>
+					修改密码
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
 			</view>
-			<view class="item viewFlex">
+			<!-- <view class="item viewFlex">
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
@@ -74,8 +76,8 @@
 					</view>
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
-			</view>
-			<view class="item viewFlex" @click="$utils.handleNavigate('/pages/setup/language')">
+			</view> -->
+			<!-- <view class="item viewFlex" @click="$utils.handleNavigate('/pages/setup/language')">
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
@@ -84,50 +86,53 @@
 					切换文字
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
-			</view>
-		</view>	
+			</view> -->
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {
-			}
+			return {}
 		},
 		onLoad() {
-			
+
 		},
 		methods: {
-			
+
 		}
 	}
 </script>
 
 <style lang="scss">
-	.item{
+	.item {
 		padding: 15rpx 20rpx;
 		border-top: 1rpx solid black;
 		height: 100rpx;
-		.icon{
+
+		.icon {
 			display: flex;
 			align-self: center;
-			image{
+
+			image {
 				width: 60rpx;
 			}
 		}
-		
-		.content{
+
+		.content {
 			margin-left: 20rpx;
 			flex: 1;
 			align-items: center;
 			font-size: 32rpx;
-			.desc{
+
+			.desc {
 				font-size: 26rpx;
 			}
 		}
 	}
-	.b-b-1{
+
+	.b-b-1 {
 		border-bottom: 1rpx solid black;
 	}
 </style>
