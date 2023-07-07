@@ -59,7 +59,7 @@
 		</u-swipe-action>
 		<block v-if="listShow == false">
 			<view class="smalllist_padd">
-				<view class="smalllist_display">
+				<view class="smalllist_display" style="padding-bottom: 20rpx;">
 					<!-- <view class="smalllist_width_1">
 						<view class="">{{$t("tabBar.index.list.transaction")}}</view>
 					</view> -->
@@ -85,7 +85,7 @@
 			<u-swipe-action :show="item.show" :options="options" v-for="(item,index) in getGoodsList"
 				:key="'smalll_' + index" @content-click="actionSheetShowClick(index)" @open="open(index)"
 				:index="item.id" @click="deleClick" class="smalllist_padd">
-				<view class="smalllist_display" @click="actionSheetShowClick(index)">
+				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
 					<view class="smalllist_width_2 smalllist_nei">
 						<view class="smalllist_width">
 							{{item.name}}
