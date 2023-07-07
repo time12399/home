@@ -43,7 +43,7 @@
 						<view class="title_time">L:{{item.k_top}}</view>
 					</view>
 					<view class="title_width_1">
-						<view class="num_title">
+						<view class="num_title num_title_right">
 							<view class="num_top" v-show="item.now_buy_status == 0">{{item.now_buy_arr[0]}}</view>
 							<view class="num_top color1" v-show="item.now_buy_status == 1">{{item.now_buy_arr[0]}}
 							</view>
@@ -52,14 +52,14 @@
 							<text class="num_bag">{{item.now_buy_arr[1]}}</text>
 							<view class="num_right">{{item.now_buy_arr[2]}}</view>
 						</view>
-						<view class="title_time">L:{{item.k_low}}</view>
+						<view class="title_time num_title_right">L:{{item.k_low}}</view>
 					</view>
 				</view>
 			</view>
 		</u-swipe-action>
-		<block v-if="listShow == false" >
+		<block v-if="listShow == false">
 			<view class="smalllist_padd">
-				<view class="smalllist_display" style="padding-bottom: 30rpx;">
+				<view class="smalllist_display">
 					<!-- <view class="smalllist_width_1">
 						<view class="">{{$t("tabBar.index.list.transaction")}}</view>
 					</view> -->
@@ -82,9 +82,10 @@
 					</view>
 				</view>
 			</view>
-			<u-swipe-action :show="item.show" :options="options" v-for="(item,index) in getGoodsList" :key="'smalll_' + index" @content-click="actionSheetShowClick(index)"
-				@open="open(index)" :index="'smalll_' + index" @click="deleClick" class="smalllist_padd">
-				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
+			<u-swipe-action :show="item.show" :options="options" v-for="(item,index) in getGoodsList"
+				:key="'smalll_' + index" @content-click="actionSheetShowClick(index)" @open="open(index)"
+				:index="item.id" @click="deleClick" class="smalllist_padd">
+				<view class="smalllist_display" @click="actionSheetShowClick(index)">
 					<view class="smalllist_width_2 smalllist_nei">
 						<view class="smalllist_width">
 							{{item.name}}
@@ -105,7 +106,7 @@
 				</view>
 			</u-swipe-action>
 		</block>
-		
+
 		<u-popup v-model="homeShow" mode="center" length="80%" border-radius="20">
 			<view class="popup_padding">
 				<view class="popup_title">{{$t("tabBar.index.title")}}Maeta Trader 5！</view>
@@ -187,7 +188,7 @@
 			}
 			this.getGoodsInit()
 		},
-		onShow(){
+		onShow() {
 			this.getGoodsInit()
 		},
 		methods: {
@@ -236,9 +237,19 @@
 				delGoods(data).then(res => {
 					if (res.code == 1) {
 						this.getGoodsList.splice(this.deleteId, 1);
+
+						this.resettingShow()
+
 						// this.getGoodsList = res.data
 					}
 				})
+			},
+			resettingShow() {
+				var data = this.getGoodsList
+				for (let i = 0; i < data.length; i++) {
+					data[i].show = false
+				}
+				this.getGoodsList = data
 			},
 			deleClick(index, index1) {
 				if (index1 == 1) {
@@ -252,6 +263,7 @@
 			},
 			smallType() {
 				this.listShow = !this.listShow
+				this.resettingShow()
 			},
 			// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
 			open(index) {
@@ -278,7 +290,7 @@
 	}
 
 	.list_padd {
-		padding: 0 20rpx 10rpx 20rpx;
+		padding: 0 22rpx 10rpx 20rpx;
 
 		.burden_num {
 			font-size: 20rpx;
@@ -351,6 +363,10 @@
 					}
 				}
 
+				.num_title_right {
+					margin-right: 15rpx !important;
+				}
+
 				.num_top {
 					margin-top: 18rpx;
 				}
@@ -398,7 +414,7 @@
 	}
 
 	.smalllist_padd {
-		padding: 20rpx;
+		padding: 15rpx 20rpx 15rpx 20rpx;
 
 		.smalllist_display {
 			display: block;
