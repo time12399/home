@@ -47,7 +47,8 @@
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
-				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/setup/withdrawal')">
+				<!--  @click="$utils.handleNavigate('/pages/setup/withdrawal')" 提现页面 -->
+				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/index/cashOut')">
 					提现
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
