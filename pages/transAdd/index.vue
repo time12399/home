@@ -7,8 +7,8 @@
 				</view>
 				<view class="width_2">
 					<view class="nav_padding">
-						<view class="title" @click="goLink('/pages/transAdd/add')">{{findGoodsData.name}} <u-icon name="arrow-down"
-								color="#333" size="20"></u-icon> </view>
+						<view class="title" @click="goLink('/pages/transAdd/add')">{{findGoodsData.name}} <u-icon
+								name="arrow-down" color="#333" size="20"></u-icon> </view>
 						<view class="xi">{{findGoodsData.title}}</view>
 					</view>
 				</view>
@@ -41,11 +41,11 @@
 
 		<view style="background: #ffffff;">
 			<view class="display_list">
-				<view class="list_width price_color_1">-0.5</view>
-				<view class="list_width price_color_1">-0.1</view>
-				<view class="list_width">{{myamount_}}</view>
-				<view class="list_width price_color_1">+0.1</view>
-				<view class="list_width price_color_1">+0.5</view>
+				<view class="list_width price_color_1" @click="numOneClick">-{{number.numOne}}</view>
+				<view class="list_width price_color_1" @click="numTwoClick">-{{number.numTwo}}</view>
+				<view class="list_width">{{number.numThree}}</view>
+				<view class="list_width price_color_1" @click="numFourClick">+{{number.numFour}}</view>
+				<view class="list_width price_color_1" @click="numFiveClick">+{{number.numFive}}</view>
 			</view>
 
 			<view class="list_padd">
@@ -158,9 +158,17 @@
 				}],
 				type: 0,
 				placeholder: this.$t("transAdd.index.notset"),
-				findGoodsData:[],
-				pid:'',
-				myamount_:0.01
+				findGoodsData: [],
+				pid: '',
+				myamount_: 0.01,
+				number: {
+					numOne: 0.5,
+					numTwo: 0.1,
+					numThree: 0.01,
+					numFour: 0.1,
+					numFive: 0.5,
+				},
+				numTree: 0.1,
 			}
 		},
 		onLoad(e) {
@@ -190,32 +198,182 @@
 			BuyClick() {
 				this.type = 1
 			},
-			SellClick(status){
-				if(status == 2){
-					var price = this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] + this.findGoodsData.now_sell[2]
-				}else{
-					var price = this.findGoodsData.now_buy[0] + this.findGoodsData.now_buy[1] + this.findGoodsData.now_buy[2]
+			SellClick(status) {
+				if (status == 2) {
+					var price = this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] + this.findGoodsData
+						.now_sell[2]
+				} else {
+					var price = this.findGoodsData.now_buy[0] + this.findGoodsData.now_buy[1] + this.findGoodsData.now_buy[
+						2]
 				}
 				let data = {
-					status:status,//卖出2  买入1
-					pid:this.pid,
-					time:Math.round(new Date() / 1000),
-					type:1, //立即执行 1
-					price:price,
-					myamount_:this.myamount_,
+					status: status, //卖出2  买入1
+					pid: this.pid,
+					time: Math.round(new Date() / 1000),
+					type: 1, //立即执行 1
+					price: price,
+					myamount_: this.myamount_,
 				}
-				uni.setStorageSync('p_token', md5.hex_md5(this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] + this.findGoodsData.now_sell[2] + 'GMXskC3s2m'))
+				uni.setStorageSync('p_token', md5.hex_md5(this.findGoodsData.now_sell[0] + this.findGoodsData.now_sell[1] +
+					this.findGoodsData.now_sell[2] + 'GMXskC3s2m'))
 				addTrade(data).then(res => {
 					if (res.code == 1) {
 						console.log(res)
-					}else{
+					} else {
 						// console.log(11,res)
 						uni.showToast({
 							title: res.info,
 							icon: 'none',
-						})  
+						})
 					}
 				})
+			},
+
+			//+0.1
+			numFourClick() {
+				var number = this.number.numThree + this.number.numFour
+				if (number > 500) {
+					this.number.numThree = 500.00
+				} else {
+					console.log(number)
+					if (number < 500) {
+						this.number.numThree = parseFloat(number.toFixed(2))
+					}
+				}
+				// this.number.numThree = parseFloat(number.toFixed(2))
+				if (this.number.numThree > 1) {
+					this.numberClick1()
+				}
+				if (this.number.numThree > 10) {
+					this.numberClick2()
+				}
+				if (this.number.numThree > 50) {
+					this.numberClick3()
+				}
+				if (this.number.numThree > 100) {
+					this.numberClick4()
+				}
+				if (this.number.numThree > 500) {
+					this.numberClick5()
+				}
+			},
+			//+0.5
+			numFiveClick() {
+				var number = this.number.numThree + this.number.numFive
+				if (number > 500) {
+					this.number.numThree = 500.00
+				} else {
+					if (number < 500) {
+						this.number.numThree = parseFloat(number.toFixed(2))
+					}
+				}
+
+				if (this.number.numThree > 1) {
+					this.numberClick1()
+				}
+				if (this.number.numThree > 10) {
+					this.numberClick2()
+				}
+				if (this.number.numThree > 50) {
+					this.numberClick3()
+				}
+				if (this.number.numThree > 100) {
+					this.numberClick4()
+				}
+				if (this.number.numThree > 500) {
+					this.numberClick5()
+				}
+			},
+
+			//-0.1
+			numTwoClick() {
+				if (this.number.numThree > 0.1) {
+					var number = this.number.numThree - this.number.numTwo
+					if (number <= 0.01) {
+						this.number.numThree = 0.01
+						this.numberClick()
+					} else {
+						this.number.numThree = parseFloat(number.toFixed(2))
+					}
+				}
+			},
+			//-0.5
+			numOneClick() {
+				if (this.number.numThree > 0.5) {
+					var number = this.number.numThree - this.number.numOne
+					if (number <= 0.01) {
+						this.number.numThree = 0.01
+						this.numberClick()
+					} else {
+						this.number.numThree = parseFloat(number.toFixed(2))
+					}
+				}
+			},
+			//集体变换 原始
+			numberClick() {
+				let number = {
+					numOne: 0.5,
+					numTwo: 0.1,
+					numThree: this.number.numThree,
+					numFour: 0.1,
+					numFive: 0.5,
+				}
+				this.number = number
+			},
+			//集体变换 > 1
+			numberClick1() {
+				let number = {
+					numOne: 5,
+					numTwo: 1,
+					numThree: this.number.numThree,
+					numFour: 1,
+					numFive: 5,
+				}
+				this.number = number
+			},
+			//集体变换 > 10
+			numberClick2() {
+				let number = {
+					numOne: 10,
+					numTwo: 1,
+					numThree: this.number.numThree,
+					numFour: 1,
+					numFive: 10,
+				}
+				this.number = number
+			},
+			//集体变换 > 50
+			numberClick3() {
+				let number = {
+					numOne: 25,
+					numTwo: 10,
+					numThree: this.number.numThree,
+					numFour: 10,
+					numFive: 25,
+				}
+				this.number = number
+			},
+			//集体变换 > 100
+			numberClick4() {
+				let number = {
+					numOne: 100,
+					numTwo: 50,
+					numThree: this.number.numThree,
+					numFour: 50,
+					numFive: 100,
+				}
+				this.number = number
+			},
+			//集体变换 > 500
+			numberClick5() {
+				let number = {
+					numOne: 500,
+					numTwo: 100,
+					numThree: this.number.numThree,
+					numFour: 100,
+					numFive: 500,
+				}
+				this.number = number
 			}
 		}
 	}
