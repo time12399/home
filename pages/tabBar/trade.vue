@@ -11,15 +11,18 @@
 				<view class="content_title_1">{{$t("tabBar.trade.balance")}}:</view>
 				<view class="content_title_1">{{$t("tabBar.trade.worth")}}:</view>
 				<view class="content_title_1">{{$t("tabBar.trade.advance")}}:</view>
-				<view class="content_title_1">{{$t("tabBar.trade.available")}}:</view>
-				<view class="content_title_1">{{$t("tabBar.trade.prepayment")}}(%):</view>
+				<view class="content_title_1" v-show="getMyNowOrderDataLength > 0">{{$t("tabBar.trade.available")}}:
+				</view>
+				<view class="content_title_1" v-show="getMyNowOrderDataLength > 0">
+					{{$t("tabBar.trade.prepayment")}}(%):
+				</view>
 			</view>
 			<view class="content_right" style="width:50%">
 				<view class="text3">100 000.00</view>
 				<view class="text3">100 000.00</view>
 				<view class="text3">100 000.00</view>
-				<view class="text3">100 000.00</view>
-				<view class="text3">177.82</view>
+				<view class="text3" v-show="getMyNowOrderDataLength > 0">100 000.00</view>
+				<view class="text3" v-show="getMyNowOrderDataLength > 0">177.82</view>
 			</view>
 		</view>
 
@@ -27,10 +30,11 @@
 			<view class="price_width">{{$t("tabBar.trade.price")}}</view>
 			<u-icon name="more-dot-fill" color="#808080" size="28" @click="actionSheetShow = true"></u-icon>
 		</view>
-		
+
 		<!--  @click="goLink('../index/deposit')" -->
 
-		<view class="display_content" v-for="item in getMyNowOrderData.data" :key="item.id" @click="actionListShow = true">
+		<view class="display_content" v-for="item in getMyNowOrderData.data" :key="item.id"
+			@click="actionListShow = true">
 			<view style="width:50%">
 				<view class="content_title_2">
 					<text class="content_title">{{item.name}},</text>
@@ -46,10 +50,9 @@
 			</view>
 		</view>
 
-		<u-action-sheet :list="actionList" v-model="actionSheetShow" border-radius="30"
-			@click="actionClick" :cancelText="cancelText"></u-action-sheet>
-		<u-action-sheet :list="actionListData" v-model="actionListShow" border-radius="30"
-			></u-action-sheet>
+		<u-action-sheet :list="actionList" v-model="actionSheetShow" border-radius="30" @click="actionClick"
+			:cancelText="cancelText"></u-action-sheet>
+		<u-action-sheet :list="actionListData" v-model="actionListShow" border-radius="30"></u-action-sheet>
 	</view>
 </template>
 
@@ -68,7 +71,7 @@
 				}, {
 					text: this.$t("tabBar.trade.positions")
 				}],
-				
+
 				actionListShow: false,
 				actionListData: [{
 					text: '平仓',
@@ -83,8 +86,9 @@
 				}, {
 					text: '批量操作...'
 				}],
-				cancelText:this.$t("common.cancel"),
-				getMyNowOrderData:[]
+				cancelText: this.$t("common.cancel"),
+				getMyNowOrderData: [],
+				getMyNowOrderDataLength: 0
 			}
 		},
 		onLoad() {
@@ -100,14 +104,15 @@
 			actionClick(index) {
 				console.log(`点击了第${index + 1}项，内容为：${this.actionList[index].text}`)
 			},
-			getMyNowOrderInit(){
+			getMyNowOrderInit() {
 				let data = {
 					page: 1
 				}
 				getMyOrdernow(data).then(res => {
 					if (res.code == 1) {
-						console.log(res)
+						// console.log(res)
 						this.getMyNowOrderData = res.data
+						this.getMyNowOrderDataLength = this.getMyNowOrderData.data.length
 					}
 				})
 			}
@@ -141,7 +146,8 @@
 				font-weight: bold;
 				color: #196ed9;
 			}
-			.text5{
+
+			.text5 {
 				font-weight: bold;
 				color: red;
 			}
@@ -170,8 +176,8 @@
 				font-weight: bold;
 				padding-bottom: 10rpx;
 			}
-			
-			.text5{
+
+			.text5 {
 				font-weight: bold;
 				color: red;
 			}
