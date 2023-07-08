@@ -82,24 +82,24 @@
 			<!-- 提现记录 -->
 			<view class="withdraw_padd">{{$t("index.cashOut.records")}}</view>
 
-			<view class="cash_padding_bg">
+			<view class="cash_padding_bg" v-for="(item,index) in myOrder.data" :key="index">
 				<view class="cash_bg_padding">
 					<view class="list_sort_display">
 						<view class="sort_width">
 							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
-							<view class="sort_price">900000.00</view>
+							<view class="sort_price">{{item.amount}}</view>
 						</view>
 						<view class="sort_width sort_yi_1">
 							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
-							<view class="sort_price">89000.00</view>
+							<view class="sort_price">{{item.dzAmount}}</view>
 						</view>
 						<view class="sort_width sort_yi_2">
 							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
-							<view class="sort_price">USD</view>
+							<view class="sort_price">{{item.unit}}</view>
 						</view>
 						<view class="sort_width">
 							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
-							<view class="sort_price">10.00</view>
+							<view class="sort_price">{{item.sxf}}</view>
 						</view>
 						<view class="sort_width sort_yi_1">
 							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
@@ -107,95 +107,11 @@
 						</view>
 						<view class="sort_width sort_yi_2">
 							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
-							<view class="sort_price">2023.06.15 11:10:16</view>
+							<view class="sort_price">{{item.datetime}}</view>
 						</view>
 						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
 							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
-							<view class="sort_price text-ellipsis">111111</view>
-						</view>
-						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
-							<view class="sort_price text-ellipsis">111111</view>
-						</view>
-						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
-							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="cash_padding_bg">
-				<view class="cash_bg_padding">
-					<view class="list_sort_display">
-						<view class="sort_width">
-							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
-							<view class="sort_price">900000.00</view>
-						</view>
-						<view class="sort_width sort_yi_1">
-							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
-							<view class="sort_price">89000.00</view>
-						</view>
-						<view class="sort_width sort_yi_2">
-							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
-							<view class="sort_price">USD</view>
-						</view>
-						<view class="sort_width">
-							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
-							<view class="sort_price">10.00</view>
-						</view>
-						<view class="sort_width sort_yi_1">
-							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
-							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
-						</view>
-						<view class="sort_width sort_yi_2">
-							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
-							<view class="sort_price">2023.06.15 11:10:16</view>
-						</view>
-						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
-							<view class="sort_price text-ellipsis">111111</view>
-						</view>
-						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
-							<view class="sort_price text-ellipsis">111111</view>
-						</view>
-						<view class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
-							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="cash_padding_bg">
-				<view class="cash_bg_padding">
-					<view class="list_sort_display">
-						<view class="sort_width">
-							<view class="sort_num">{{$t("index.cashOut.number")}}</view>
-							<view class="sort_price">900000.00</view>
-						</view>
-						<view class="sort_width sort_yi_1">
-							<view class="sort_num">{{$t("index.cashOut.quantity")}}</view>
-							<view class="sort_price">89000.00</view>
-						</view>
-						<view class="sort_width sort_yi_2">
-							<view class="sort_num">{{$t("index.cashOut.unit")}}</view>
-							<view class="sort_price">USD</view>
-						</view>
-						<view class="sort_width">
-							<view class="sort_num">{{$t("tabBar.history.commission")}}</view>
-							<view class="sort_price">10.00</view>
-						</view>
-						<view class="sort_width sort_yi_1">
-							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
-							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
-						</view>
-						<view class="sort_width sort_yi_2">
-							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
-							<view class="sort_price">2023.06.15 11:10:16</view>
-						</view>
-						<view v-show="currtype == 0" class="sort_width" style="width: 100%;">
-							<view class="sort_num">{{$t("index.cashOut.Delivery")}}</view>
-							<view class="sort_price text-ellipsis">111111</view>
+							<view class="sort_price text-ellipsis">{{item.address}}</view>
 						</view>
 						<view v-show="currtype == 1" class="sort_width" style="width: 100%;">
 							<view class="sort_num">{{$t("index.cashOut.account")}}</view>
@@ -238,7 +154,8 @@
 				placeholder: this.$t("index.cashOut.notes"),
 				placeholder1: this.$t("index.cashOut.pnumber"),
 				placeholder2: this.$t("index.cashOut.account"),
-				currtype: 0
+				currtype: 0,
+				myOrder: []
 			}
 		},
 		onLoad() {
@@ -276,14 +193,18 @@
 					showWithdraw: currtype
 				}
 				showWithdraw(data).then(res => {
+
 					if (res.code == 1) {
 						if (res.data.myList.length > 0) {
 							this.selectorName = res.data.myList[0].name
 							this.selectorObj = res.data.myList
 						}
 						if (res.data.withdraw_type.length > 0) {
-							this.addressObj = res.data.withdraw_type[0].name
+							this.addressObj = res.data.withdraw_type
 						}
+
+						this.myOrder = res.data.myOrder
+						console.log(this.myOrder)
 					}
 
 				})
