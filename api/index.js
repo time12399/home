@@ -85,3 +85,11 @@ export function getMyOrdernow(data) {
 		data
 	})
 }
+
+export function showWithdraw(data) {
+	return request({
+		url: 'api.auth.Transfer/showWithdraw',
+		method: 'POST',
+		data
+	})
+}
