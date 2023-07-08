@@ -7,7 +7,7 @@
 			<view class="wallet_prc">9454564.13</view>
 		</view>
 		<view style="height: 40rpx;"></view>
-		<view class="title_list">
+		<view class="title_list" @click="$utils.handleNavigate('/pages/index/binding?id=1')">
 			<view class="title_list_padding">
 				<view class="list_display">
 					<view class="width1">绑定银行卡</view>
@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view style="height: 40rpx;"></view>
-		<view class="title_list">
+		<view class="title_list" @click="$utils.handleNavigate('/pages/index/binding?id=2')">
 			<view class="title_list_padding">
 				<view class="list_display">
 					<view class="width1">绑定数字货币地址</view>
