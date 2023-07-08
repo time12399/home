@@ -38,7 +38,7 @@
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
-				<view class="content viewFlex">
+				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/index/deposit')">
 					充值
 				</view>
 				<u-icon color="#555555" name="arrow-right"></u-icon>
