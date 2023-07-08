@@ -37,8 +37,10 @@
 							{{$t("index.cashOut.account")}}
 						</view>
 						<view class="cash_list_width_2">
-							<input type="number" :placeholder="placeholder2" placeholder-style="font-size:28rpx">
+							<!-- <input type="number" :placeholder="placeholder2" placeholder-style="font-size:28rpx"> -->
+							{{placeholder2}}
 						</view>
+
 					</view>
 
 
@@ -207,9 +209,9 @@
 				</view>
 			</view>
 		</view>
-		<u-picker v-model="pickerShow" mode="selector" :range="selectorObj" range-key="cateName"
+		<u-picker v-model="pickerShow" mode="selector" :range="selectorObj" range-key="name"
 			@confirm="confirm"></u-picker>
-		<u-picker v-model="addressShow" mode="selector" :range="addressObj" range-key="cateName"
+		<u-picker v-model="addressShow" mode="selector" :range="addressObj" range-key="name"
 			@confirm="addconfirm"></u-picker>
 	</view>
 </template>
@@ -226,36 +228,12 @@
 				// columns: [
 				// 	'USD-TRC20', 'USD-TRC20', 'USD-TRC20'
 				// ],
-				selectorObj: [{
-						cateName: 'USD-TRC20',
-						id: 1
-					},
-					{
-						cateName: 'USD-TRC21',
-						id: 2
-					},
-					{
-						cateName: 'USD-TRC22',
-						id: 3
-					}
-				],
-				selectorName: 'USD-TRC20',
+				selectorObj: [],
+				selectorName: '',
 
 
 				addressShow: false,
-				addressObj: [{
-						cateName: '1111',
-						id: 1
-					},
-					{
-						cateName: '2222',
-						id: 2
-					},
-					{
-						cateName: '3333',
-						id: 3
-					}
-				],
+				addressObj: [],
 				addressName: this.$t("index.cashOut.withdrawal"),
 				placeholder: this.$t("index.cashOut.notes"),
 				placeholder1: this.$t("index.cashOut.pnumber"),
@@ -269,11 +247,11 @@
 		},
 		methods: {
 			confirm(e) {
-				this.selectorName = this.selectorObj[e].cateName
+				this.selectorName = this.selectorObj[e].name
 				this.pickerShow = false
 			},
 			addconfirm(e) {
-				this.addressName = this.addressObj[e].cateName
+				this.addressName = this.addressObj[e].name
 				this.addressShow = false
 			},
 			BankCardClick(index) {
@@ -284,6 +262,8 @@
 				// 	uni.setStorageSync('withdraw_type', '2');
 				// }
 				this.currtype = index
+
+				this.showWithdrawInit()
 			},
 			showWithdrawInit() {
 				if (this.currtype == 0) {
@@ -293,10 +273,19 @@
 				}
 
 				let data = {
-					withdraw_type: currtype
+					showWithdraw: currtype
 				}
 				showWithdraw(data).then(res => {
-					console.log(res)
+					if (res.code == 1) {
+						if (res.data.myList.length > 0) {
+							this.selectorName = res.data.myList[0].name
+							this.selectorObj = res.data.myList
+						}
+						if (res.data.withdraw_type.length > 0) {
+							this.addressObj = res.data.withdraw_type[0].name
+						}
+					}
+
 				})
 			},
 		}
