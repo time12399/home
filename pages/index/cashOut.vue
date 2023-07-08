@@ -5,8 +5,10 @@
 			<view class="cash_padding_bg">
 				<view class="cash_bg_padding">
 					<view class="cash_display">
-						<view class="cash_width" :class="currtype == 0 ?'cash_color_1' : 'cash_color_2'" @click="BankCardClick(0)">{{$t("index.cashOut.currency")}}</view>
-						<view class="cash_width" :class="currtype == 1 ?'cash_color_1' : 'cash_color_2'" style="margin-left: 1%;" @click="BankCardClick(1)">{{$t("index.cashOut.BankCard")}}</view>
+						<view class="cash_width" :class="currtype == 0 ?'cash_color_1' : 'cash_color_2'"
+							@click="BankCardClick(0)">{{$t("index.cashOut.currency")}}</view>
+						<view class="cash_width" :class="currtype == 1 ?'cash_color_1' : 'cash_color_2'"
+							style="margin-left: 1%;" @click="BankCardClick(1)">{{$t("index.cashOut.BankCard")}}</view>
 					</view>
 					<view class="cash_list_display">
 						<view class="cash_list_width_1">
@@ -38,8 +40,8 @@
 							<input type="number" :placeholder="placeholder2" placeholder-style="font-size:28rpx">
 						</view>
 					</view>
-					
-					
+
+
 					<view class="cash_list_display">
 						<view class="cash_list_width_1">
 							{{$t("index.cashOut.number")}}
@@ -213,6 +215,9 @@
 </template>
 
 <script>
+	import {
+		showWithdraw
+	} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -252,11 +257,15 @@
 					}
 				],
 				addressName: this.$t("index.cashOut.withdrawal"),
-				placeholder:this.$t("index.cashOut.notes"),
-				placeholder1:this.$t("index.cashOut.pnumber"),
-				placeholder2:this.$t("index.cashOut.account"),
-				currtype:0
+				placeholder: this.$t("index.cashOut.notes"),
+				placeholder1: this.$t("index.cashOut.pnumber"),
+				placeholder2: this.$t("index.cashOut.account"),
+				currtype: 0
 			}
+		},
+		onLoad() {
+			this.showWithdrawInit()
+			// uni.setStorageSync('withdraw_type', '1');
 		},
 		methods: {
 			confirm(e) {
@@ -267,10 +276,29 @@
 				this.addressName = this.addressObj[e].cateName
 				this.addressShow = false
 			},
-			BankCardClick(index){
+			BankCardClick(index) {
 				// console.log(index)
+				// if (index = 0) {
+				// 	uni.setStorageSync('withdraw_type', '1');
+				// } else {
+				// 	uni.setStorageSync('withdraw_type', '2');
+				// }
 				this.currtype = index
-			}
+			},
+			showWithdrawInit() {
+				if (this.currtype == 0) {
+					var currtype = 1
+				} else {
+					var currtype = 2
+				}
+
+				let data = {
+					withdraw_type: currtype
+				}
+				showWithdraw(data).then(res => {
+					console.log(res)
+				})
+			},
 		}
 	}
 </script>
