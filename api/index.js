@@ -93,3 +93,35 @@ export function showWithdraw(data) {
 		data
 	})
 }
+
+export function showWithdrawType(data) {
+	return request({
+		url: 'api.auth.Transfer/showWithdrawType',
+		method: 'POST',
+		data
+	})
+}
+
+export function addWithdrawAddress(data) {
+	return request({
+		url: 'api.auth.Transfer/addWithdrawAddress',
+		method: 'POST',
+		data
+	})
+}
+
+export function showWithdrawAddress(data) {
+	return request({
+		url: 'api.auth.Transfer/showWithdrawAddress',
+		method: 'POST',
+		data
+	})
+}
+
+export function delWithdrawAddress(data) {
+	return request({
+		url: 'api.auth.Transfer/delWithdrawAddress',
+		method: 'POST',
+		data
+	})
+}
