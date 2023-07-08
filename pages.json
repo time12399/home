@@ -126,6 +126,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/binding",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#a5a5a4",
