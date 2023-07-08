@@ -67,9 +67,9 @@
 							<view class="content_title_1">{{$t("index.cashOut.balance")}}</view>
 						</view>
 						<view class="content_right" style="width:50%">
-							<view class="text3">10</view>
+							<view class="text3">{{my_money.sxf}}</view>
 							<view class="text3">11101 USD</view>
-							<view class="text3">954545444.91 USD</view>
+							<view class="text3">{{my_money.money}}</view>
 						</view>
 					</view>
 
@@ -82,7 +82,7 @@
 			<!-- 提现记录 -->
 			<view class="withdraw_padd">{{$t("index.cashOut.records")}}</view>
 
-			<view class="cash_padding_bg" v-for="(item,index) in myOrder.data" :key="index">
+			<view class="cash_padding_bg" v-for="(item,index) in myOrder" :key="index">
 				<view class="cash_bg_padding">
 					<view class="list_sort_display">
 						<view class="sort_width">
@@ -103,7 +103,9 @@
 						</view>
 						<view class="sort_width sort_yi_1">
 							<view class="sort_num">{{$t("index.cashOut.state")}}</view>
-							<view class="sort_price">{{$t("index.cashOut.Audit")}}</view>
+							<view class="sort_price" v-show="item.status == 0">已驳回</view>
+							<view class="sort_price" v-show="item.status == 1">{{$t("index.cashOut.Audit")}}</view>
+							<view class="sort_price" v-show="item.status == 4">已通过</view>
 						</view>
 						<view class="sort_width sort_yi_2">
 							<view class="sort_num">{{$t("index.cashOut.time")}}</view>
@@ -119,11 +121,15 @@
 						</view>
 						<view class="sort_width" style="width: 100%;">
 							<view class="sort_num">{{$t("index.cashOut.notes")}}</view>
-							<view class="sort_price text-ellipsis">sdjkfjsd1</view>
+							<view class="sort_price text-ellipsis">{{item.remark}}</view>
 						</view>
 					</view>
 				</view>
 			</view>
+			<!-- 加载动画 -->
+			<view v-if="isLoading" class="loading">加载中...</view>
+			<!-- 加载完成 -->
+			<view v-if="isFinished" class="finished">已加载全部数据</view>
 		</view>
 		<u-picker v-model="pickerShow" mode="selector" :range="selectorObj" range-key="name"
 			@confirm="confirm"></u-picker>
@@ -155,12 +161,22 @@
 				placeholder1: this.$t("index.cashOut.pnumber"),
 				placeholder2: this.$t("index.cashOut.account"),
 				currtype: 0,
-				myOrder: []
+				myOrder: [],
+				my_money: [],
+				pageIndex: 1, // 当前页码
+				// pageSize: 10, // 每页数据数量
+				isLoading: false, // 是否正在加载
+				isFinished: false, // 是否加载完成
 			}
 		},
 		onLoad() {
 			this.showWithdrawInit()
 			// uni.setStorageSync('withdraw_type', '1');
+		},
+		onReachBottom() {
+			if (!this.isLoading && !this.isFinished) {
+				this.showWithdrawInit(); // 触发获取数据的方法
+			}
 		},
 		methods: {
 			confirm(e) {
@@ -183,6 +199,7 @@
 				this.showWithdrawInit()
 			},
 			showWithdrawInit() {
+				this.isLoading = true;
 				if (this.currtype == 0) {
 					var currtype = 1
 				} else {
@@ -190,24 +207,34 @@
 				}
 
 				let data = {
-					showWithdraw: currtype
+					showWithdraw: currtype,
+					page: this.pageIndex
 				}
 				showWithdraw(data).then(res => {
+						// console.log(res)
+						if (res.code == 1) {
+							if (res.data.myList.length > 0) {
+								this.selectorName = res.data.myList[0].name
+								this.selectorObj = res.data.myList
+							}
+							if (res.data.withdraw_type.length > 0) {
+								this.addressObj = res.data.withdraw_type
+							}
+							// this.myOrder = res.data.myOrder.data
 
-					if (res.code == 1) {
-						if (res.data.myList.length > 0) {
-							this.selectorName = res.data.myList[0].name
-							this.selectorObj = res.data.myList
+							if (res.data.myOrder.data && res.data.myOrder.data.length > 0) {
+								this.myOrder = this.myOrder.concat(res.data.myOrder.data);
+								this.pageIndex++; // 增加页码
+							} else {
+								this.isFinished = true; // 数据加载完成
+							}
+							console.log(this.myOrder)
+							this.my_money = res.data.my_money
 						}
-						if (res.data.withdraw_type.length > 0) {
-							this.addressObj = res.data.withdraw_type
-						}
-
-						this.myOrder = res.data.myOrder
-						console.log(this.myOrder)
-					}
-
-				})
+					})
+					.finally(() => {
+						this.isLoading = false; // 设置加载完成状态
+					});
 			},
 		}
 	}
@@ -341,6 +368,13 @@
 					}
 				}
 			}
+		}
+
+		.loading,
+		.finished {
+			text-align: center;
+			padding: 10px;
+			color: #999;
 		}
 
 		.withdraw_padd {
