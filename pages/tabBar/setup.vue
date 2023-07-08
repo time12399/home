@@ -38,6 +38,15 @@
 				<view class="viewFlex icon">
 					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
 				</view>
+				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/index/wallet')">
+					钱包
+				</view>
+				<u-icon color="#555555" name="arrow-right"></u-icon>
+			</view>
+			<view class="item viewFlex">
+				<view class="viewFlex icon">
+					<image src="/static/image/setup/aa.jpg" mode="widthFix"></image>
+				</view>
 				<view class="content viewFlex" @click="$utils.handleNavigate('/pages/index/deposit')">
 					充值
 				</view>
