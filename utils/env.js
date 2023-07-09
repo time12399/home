@@ -2,4 +2,5 @@
 
 export default { //存放变量的容器
 	baseUrl: 'https://2740327403.6ccnzg.site/apxjasjdja/',
+	wsUrl:'ws://2740327403.6ccnzg.site/wss',
 }

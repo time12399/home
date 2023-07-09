@@ -8,6 +8,8 @@ import uView from "uview-ui";
 import VueI18n from 'vue-i18n'
 import messages from './locale/index'
 
+import ws from '@/utils/ws.js'
+
 let currLanguage = uni.getStorageSync("currLanguage")
 // 初始化存入系统语言
 if(!uni.getStorageSync("localeLan")){
@@ -31,6 +33,8 @@ Vue.prototype.$throw = function (message) {
 	this.$u.toast(message)
 	throw new AccountError(message);
 };
+
+Vue.prototype.$ws = ws
 
 // #ifndef VUE3
 import Vue from 'vue'

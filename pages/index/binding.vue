@@ -210,6 +210,7 @@
 				}
 				showWithdrawAddress(data).then(res => {
 					if (res.code == 1) {
+						console.log(res)
 						var data = res.data
 						for (let i = 0; i < data.length; i++) {
 							data[i].show = false

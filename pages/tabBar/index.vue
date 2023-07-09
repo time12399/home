@@ -11,7 +11,7 @@
 		</view>
 		<u-swipe-action :show="item.show" :options="options" v-if="listShow" class="list_padd"
 			v-for="(item,index) in getGoodsList" :key="index" @content-click="actionSheetShowClick(index)"
-			@open="open(index)" :index="item.id" @click="deleClick">
+			@open="open(index)" :index="item.id + ',' + index" @click="deleClick">
 			<!-- ()index,item.id -->
 			<view>
 				<view class="burden_num">
@@ -84,7 +84,7 @@
 			</view>
 			<u-swipe-action :show="item.show" :options="options" v-for="(item,index) in getGoodsList"
 				:key="'smalll_' + index" @content-click="actionSheetShowClick(index)" @open="open(index)"
-				:index="item.id" @click="deleClick" class="smalllist_padd">
+				:index="item.id + ',' + index" @click="deleClick" class="smalllist_padd">
 				<view class="smalllist_display" style="padding-bottom: 20rpx;" @click="actionSheetShowClick(index)">
 					<view class="smalllist_width_2 smalllist_nei">
 						<view class="smalllist_width">
@@ -190,6 +190,8 @@
 		},
 		onShow() {
 			this.getGoodsInit()
+			// this.$ws.init()
+			// console.log('App Show')
 		},
 		methods: {
 			getGoodsInit() {
@@ -201,13 +203,13 @@
 				// })
 				getGoods().then(res => {
 					if (res.code == 1) {
+						console.log(111, res.data)
+						
 						var data = res.data.data
-
 						for (let i = 0; i < data.length; i++) {
-							// data[i].date = data[i].date.split(" ")[1]
 							data[i].show = false
 						}
-						// console.log(111, data)
+						
 						this.getGoodsList = data
 
 					}
@@ -252,8 +254,11 @@
 				this.getGoodsList = data
 			},
 			deleClick(index, index1) {
+				var index = index.split(',');
 				if (index1 == 1) {
-					this.delGoodsInit(index) //删除
+					this.deleteId = index[1]
+					this.delGoodsInit(index[0]) //删除
+					
 				}
 			},
 			goLink(url) {
