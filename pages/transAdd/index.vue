@@ -53,14 +53,14 @@
 					<view class="list_width_1">{{$t("transAdd.index.StopLoss")}}</view>
 					<view class="list_width_1">
 						<view style="display:flex">
-							<view class="list_num_width">
+							<view class="list_num_width" @click="StopLossReduce">
 								<u-icon name="minus" color="#2979ff" size="28"></u-icon>
 							</view>
 							<view class="list_num_width_1">
-								<input type="number" :placeholder="placeholder"
+								<input type="number" v-model="list.loss" :placeholder="placeholder"
 									placeholder-class="my-input-placeholder" />
 							</view>
-							<view class="list_num_width">
+							<view class="list_num_width" @click="StopLossAdd">
 								<u-icon name="plus" color="#2979ff" size="28"></u-icon>
 							</view>
 						</view>
@@ -169,6 +169,9 @@
 					numFive: 0.5,
 				},
 				numTree: 0.1,
+				list:{
+					loss:''
+				}
 			}
 		},
 		onLoad(e) {
@@ -235,7 +238,6 @@
 				if (number > 500) {
 					this.number.numThree = 500.00
 				} else {
-					console.log(number)
 					if (number < 500) {
 						this.number.numThree = parseFloat(number.toFixed(2))
 					}
@@ -374,6 +376,30 @@
 					numFive: 500,
 				}
 				this.number = number
+			},
+			// 止损 -
+			StopLossReduce(){
+				if(this.list.loss){
+					
+				}else{
+					this.list.loss = this.findGoodsData.now_sell_str
+				}
+			},
+			// 止损 +
+			StopLossAdd(){
+				// console.log()
+				if(this.list.loss){
+					var num = this.list.loss.split(".")
+					// console.log(num[0].length) //前
+					// console.log(num[1].length) //后
+					console.log(num)
+					var zar = Number('0.'.padEnd(num[1].length+1, '0') + 1) //后
+					this.list.loss = Number(this.list.loss) + zar
+					this.list.loss = this.list.loss + ''
+				}else{
+					// this.list.loss = this.findGoodsData.now_sell_str
+					this.list.loss = '5.232996'
+				}
 			}
 		}
 	}

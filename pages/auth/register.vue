@@ -5,7 +5,7 @@
 			<text class="back" @click="$utils.comeback()">
 				{{$t("common.cancel")}}
 			</text>
-			<text class="title">{{$t("common.authorizaion")}}</text>
+			<text class="title">注册</text>
 		</view>
 		<u-gap height="200"></u-gap>
 		<view class="content">
@@ -13,8 +13,8 @@
 				<u-form :model="form" ref="uForm" >
 					<u-form-item label-width="70"label="登录" prop="phone" >
 						<u-input 
-							:clearable="false"
-						input-align="right" ref="phone" v-model="form.phone" placeholder="输入登录名" maxlength="11" />
+							:clearable="false" type="number"
+						input-align="right" ref="phone" v-model="form.phone" placeholder="输入注册名" maxlength="11" />
 					</u-form-item>
 					<u-form-item label-width="70" label="密码" prop="password" :border-bottom="false">
 						<u-input :clearable="false" 
@@ -32,7 +32,7 @@
 			</view>
 			<u-button class="submit-btn" @click="submit" type="success">注冊</u-button>
 			
-			<u-button class="submit-btn register" @click="$utils.handleNavigate('/pages/auth/register')">登录</u-button>
+			<u-button class="submit-btn register" @click="$utils.handleNavigate('/pages/auth/login')">登录</u-button>
 		</view>
 	</view>
 </template>
@@ -54,11 +54,19 @@
 					form = this.form
 				
 				if(!form.phone){
-					this.$refs.phone.focus = true
+					// this.$refs.phone.focus = true
+					uni.showToast({
+					    title: '请输入注册名',
+					    icon: 'none',
+					})
 					return
 				}
 				if(!form.password){
-					this.$refs.password.focus = true
+					// this.$refs.password.focus = true
+					uni.showToast({
+					    title: '请输入密码',
+					    icon: 'none',
+					})
 					return
 				}
 				this.$store.dispatch("user/register", form)

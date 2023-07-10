@@ -49,9 +49,9 @@ function init() {
 	})
 	socketTask.onMessage((massage) => {
 		//自定义处理onMessage方法
-		console.log("接收消息-massage：" , massage)
+		
 		let res = JSON.parse(massage.data)
-		console.log("接收消息-res：" ,res)
+		// console.log("接收消息-res：" ,res)
 		switch(res.type){
 			case "init":
 				send({
@@ -62,6 +62,9 @@ function init() {
 			case "receive_message":
 				Vue.prototype.$store.commit("chat/msgReceive", res)
 				break;
+			case 'index_goods_s':
+				Vue.$emit('on-charts-data', res.data || {})
+				break
 		}
 	})
 	socketTask.onClose(() => {

@@ -54,11 +54,20 @@
 					form = this.form
 				
 				if(!form.phone){
-					this.$refs.phone.focus = true
+					// this.$refs.phone.focus = true
+					// console.log(11)
+					uni.showToast({
+					    title: '请输入登录名',
+					    icon: 'none',
+					})
 					return
 				}
 				if(!form.password){
-					this.$refs.password.focus = true
+					// this.$refs.password.focus = true
+					uni.showToast({
+					    title: '请输入密码',
+					    icon: 'none',
+					})
 					return
 				}
 				this.$store.dispatch("user/login", form)

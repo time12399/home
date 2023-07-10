@@ -47,10 +47,14 @@ mutations = {
 						title: response.info,
 						icon: "none"
 					})
+					setTimeout(function () {
+						uni.hideLoading();
+					}, 2000);
 				}
 	    }).catch(error => {
 	        console.log(error)
 	    })
+			
 	},
 	login({ commit }, param) {
 			uni.showLoading({
@@ -67,6 +71,9 @@ mutations = {
 						title: response.info,
 						icon: "none"
 					})
+					setTimeout(function () {
+						uni.hideLoading();
+					}, 2000);
 				}
 				
 	    	

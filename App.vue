@@ -2,7 +2,7 @@
 	export default {
 		onLaunch: function(options) {
 			if (!this.$store.state.user.hasLogin) {
-
+				// 判断有没有登陆
 				// if("pages/tabBar/index".indexOf(options.path) == -1){
 				// 	uni.reLaunch({
 				// 		url: "/pages/auth/login",
@@ -22,6 +22,9 @@
 		},
 		onHide: function() {
 			// console.log('App Hide')
+		},
+		methods: {
+			
 		}
 	}
 </script>

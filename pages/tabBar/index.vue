@@ -190,7 +190,7 @@
 		},
 		onShow() {
 			this.getGoodsInit()
-			// this.$ws.init()
+			this.$ws.init()
 			// console.log('App Show')
 		},
 		methods: {
@@ -226,7 +226,7 @@
 				var index = index + 1
 				// console.log(`点击了第${index + 1}项，内容为：${this.actionList[index].text}`)
 				if (index == 1) {
-					this.goLink('/pages/transAdd/index?pid=' + this.getGoodsList[this.deleteId].id)
+					this.goLink('/pages/transAdd/index?pid=' + this.getGoodsList[this.deleteId].myid)
 				}
 				if (index == 6) {
 					this.delGoodsInit(this.getGoodsList[this.deleteId].id)
