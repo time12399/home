@@ -203,7 +203,7 @@
 				// })
 				getGoods().then(res => {
 					if (res.code == 1) {
-						console.log(111, res.data)
+						// console.log(111, res.data)
 						
 						var data = res.data.data
 						for (let i = 0; i < data.length; i++) {

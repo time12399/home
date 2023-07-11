@@ -1,6 +1,7 @@
 import env from "./env.js"
 import Vue from 'vue'
-
+import bus from './bus.js';
+import store from '../store/index.js'
 //是否已经连接上ws
 let isOpenSocket = false
 //心跳间隔，单位毫秒
@@ -63,7 +64,7 @@ function init() {
 				Vue.prototype.$store.commit("chat/msgReceive", res)
 				break;
 			case 'index_goods_s':
-				Vue.$emit('on-charts-data', res.data || {})
+				bus.$emit('on-charts-data', res.data || {})
 				break
 		}
 	})
@@ -91,12 +92,13 @@ function heartBeat() {
 }
 
 function send(data) {
-	let user_id = Vue.prototype.$store.state.user.info.id
+	// console.log(store)
+	let user_id = store.state.user.info.id
 	data.req_user_id = user_id
 	ws.socketTask.send({
 		data: JSON.stringify(data),
 		async success(res) {
-			console.log("消息发送成功", )
+			// console.log("消息发送成功", )
 		}
 	});
 }
