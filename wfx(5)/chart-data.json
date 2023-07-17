@@ -1,0 +1,174 @@
+{
+  "1": {
+    "media_id": "1",
+    "name": "EURZAR",
+    "now_buy": "16.545864",
+    "now_buy_arr": ["16.54", "58", "6"],
+    "now_buy_status": 2,
+    "now_sell": "16.545864",
+    "now_sell_arr": ["16.54",
+      "58", "6"
+    ],
+    "now_sell_status": 2,
+    "time": 1689145080,
+    "val": "16.545864"
+  },
+  "10": {
+    "media_id": "10",
+    "name": "GBPUSD",
+    "now_buy": "16.645872",
+    "now_buy_arr": ["16.64", "58",
+      "7"
+    ],
+    "now_buy_status": 2,
+    "now_sell": "16.645872",
+    "now_sell_arr": ["16.64", "58",
+      "7"
+    ],
+    "now_sell_status": 2,
+    "time": 1689145080,
+    "val": "16.645872"
+  },
+  "11": {
+    "media_id": "11",
+    "name": "EURUSD",
+    "now_buy": "16.645872",
+    "now_buy_arr": ["16.64", "58",
+      "7"
+    ],
+    "now_buy_status": 1,
+    "now_sell": "16.645872",
+    "now_sell_arr": ["16.64", "58",
+      "7"
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "16.645872"
+  },
+  "2": {
+    "media_id": "2",
+    "name": "USDSEK",
+    "now_buy": "5.233001",
+    "now_buy_arr": ["5.23", "30",
+      0
+    ],
+    "now_buy_status": 1,
+    "now_sell": "5.233001",
+    "now_sell_arr": ["5.23", "30",
+      0
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "5.233001"
+  },
+  "3": {
+    "media_id": "3",
+    "name": "USDCAD",
+    "now_buy": "1.566002",
+    "now_buy_arr": ["1.56", "60",
+      0
+    ],
+    "now_buy_status": 1,
+    "now_sell": "1.566002",
+    "now_sell_arr": ["1.56", "60",
+      0
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "1.566002"
+  },
+  "4": {
+    "media_id": "4",
+    "name": "NZDUSD",
+    "now_buy": "15.664008",
+    "now_buy_arr": ["15.66", "40",
+      0
+    ],
+    "now_buy_status": 2,
+    "now_sell": "15.664008",
+    "now_sell_arr": ["15.66", "40",
+      0
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "15.664008"
+  },
+  "5": {
+    "media_id": "5",
+    "name": "AUDUSD",
+    "now_buy": "1.56111",
+    "now_buy_arr": ["1.56", "11",
+      "1"
+    ],
+    "now_buy_status": 1,
+    "now_sell": "1.56111",
+    "now_sell_arr": ["1.56", "11",
+      "1"
+    ],
+    "now_sell_status": 2,
+    "time": 1689145080,
+    "val": "1.56111"
+  },
+  "6": {
+    "media_id": "6",
+    "name": "USDRUB",
+    "now_buy": "0.896471",
+    "now_buy_arr": ["0.89", "64",
+      "7"
+    ],
+    "now_buy_status": 2,
+    "now_sell": "0.896471",
+    "now_sell_arr": ["0.89", "64",
+      "7"
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "0.896471"
+  },
+  "7": {
+    "media_id": "7",
+    "name": "USDCNH",
+    "now_buy": "0.896462",
+    "now_buy_arr": ["0.89", "64",
+      "6"
+    ],
+    "now_buy_status": 1,
+    "now_sell": "0.896462",
+    "now_sell_arr": ["0.89", "64",
+      "6"
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "0.896462"
+  },
+  "8": {
+    "media_id": "8",
+    "name": "USDJPY",
+    "now_buy": "1.273117",
+    "now_buy_arr": ["1.27", "31",
+      "1"
+    ],
+    "now_buy_status": 1,
+    "now_sell": "1.273117",
+    "now_sell_arr": ["1.27", "31",
+      "1"
+    ],
+    "now_sell_status": 1,
+    "time": 1689145080,
+    "val": "1.273117"
+  },
+  "9": {
+    "media_id": "9",
+    "name": "USDCHF",
+    "now_buy": "1.603995",
+    "now_buy_arr": ["1.60", "39",
+      "9"
+    ],
+    "now_buy_status": 2,
+    "now_sell": "1.603995",
+    "now_sell_arr": ["1.60", "39", "9"],
+    "now_sell_status": 2,
+    "time": 1689145080,
+    "val": "1.603995"
+  }
+}
