@@ -1,6 +1,6 @@
 <template>
 	<view class="candle">
-		<!-- 这里需要一个自定义navbar -->
+		<!-- 这里需要一个自定义navbar 1 -->
 		<view class="nav-bar">
 
 		</view>
